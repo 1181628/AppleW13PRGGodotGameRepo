@@ -1,0 +1,7 @@
+G:/Y13PRGgameProject/GodotExtension/build/CMakeFiles/my_extension.dir
+G:/Y13PRGgameProject/GodotExtension/build/CMakeFiles/edit_cache.dir
+G:/Y13PRGgameProject/GodotExtension/build/CMakeFiles/rebuild_cache.dir
+G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/CMakeFiles/generate_bindings.dir
+G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/CMakeFiles/godot-cpp.dir
+G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/CMakeFiles/edit_cache.dir
+G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/CMakeFiles/rebuild_cache.dir

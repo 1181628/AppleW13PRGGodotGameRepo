@@ -15,3 +15,11 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Ignore compiled GDExtension library build artifacts
+*.lib
+*.a
+*.obj
+*.o
+build/
+bin/

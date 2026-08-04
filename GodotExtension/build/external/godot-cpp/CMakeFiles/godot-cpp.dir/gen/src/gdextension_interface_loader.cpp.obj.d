@@ -1,0 +1,41 @@
+external/godot-cpp/CMakeFiles/godot-cpp.dir/gen/src/gdextension_interface_loader.cpp.obj: \
+ G:\Y13PRGgameProject\GodotExtension\build\external\godot-cpp\gen\src\gdextension_interface_loader.cpp \
+ G:/Y13PRGgameProject/GodotExtension/external/godot-cpp/include/godot_cpp/core/error_macros.hpp \
+ G:/Y13PRGgameProject/GodotExtension/external/godot-cpp/include/godot_cpp/core/defs.hpp \
+ C:/msys64/mingw64/include/c++/16.1.0/cstddef \
+ C:/msys64/mingw64/include/c++/16.1.0/x86_64-w64-mingw32/bits/c++config.h \
+ C:/msys64/mingw64/include/c++/16.1.0/x86_64-w64-mingw32/bits/os_defines.h \
+ C:/msys64/mingw64/include/c++/16.1.0/x86_64-w64-mingw32/bits/cpu_defines.h \
+ C:/msys64/mingw64/include/c++/16.1.0/pstl/pstl_config.h \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stddef.h \
+ C:/msys64/mingw64/include/stddef.h C:/msys64/mingw64/include/crtdefs.h \
+ C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
+ C:/msys64/mingw64/include/_mingw_mac.h \
+ C:/msys64/mingw64/include/_mingw_secapi.h \
+ C:/msys64/mingw64/include/vadefs.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/version.h \
+ C:/msys64/mingw64/include/c++/16.1.0/cstdint \
+ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stdint.h \
+ C:/msys64/mingw64/include/stdint.h \
+ C:/msys64/mingw64/include/c++/16.1.0/cstring \
+ C:/msys64/mingw64/include/string.h \
+ C:/msys64/mingw64/include/corecrt_memory.h \
+ C:/msys64/mingw64/include/sec_api/string_s.h \
+ C:/msys64/mingw64/include/c++/16.1.0/type_traits \
+ C:/msys64/mingw64/include/c++/16.1.0/utility \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/stl_relops.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/stl_pair.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/move.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/utility.h \
+ C:/msys64/mingw64/include/c++/16.1.0/initializer_list \
+ G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/gen/include/godot_cpp/core/version.hpp \
+ C:/msys64/mingw64/include/c++/16.1.0/atomic \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/atomic_base.h \
+ C:/msys64/mingw64/include/c++/16.1.0/new \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/exception.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/new_except.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/exception_defines.h \
+ C:/msys64/mingw64/include/c++/16.1.0/bits/atomic_lockfree_defines.h \
+ G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/gen/include/godot_cpp/core/gdextension_interface_loader.hpp \
+ G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/gen/include/gdextension_interface.h \
+ G:/Y13PRGgameProject/GodotExtension/external/godot-cpp/include/godot_cpp/core/load_proc_address.inc
