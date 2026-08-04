@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"G:/Y13PRGgameProject/GodotExtension/build/cmake_install.cmake",
+		"G:/Y13PRGgameProject/GodotExtension/build/external/godot-cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

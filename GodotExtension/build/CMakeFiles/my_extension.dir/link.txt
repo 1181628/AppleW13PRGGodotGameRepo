@@ -1,0 +1,3 @@
+G:\Y13PRGgameProject\Cmaker\cmake-4.4.0-windows-x86_64\bin\cmake.exe -E rm -f CMakeFiles\my_extension.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\my_extension.dir/objects.a @CMakeFiles\my_extension.dir\objects1.rsp
+C:\msys64\mingw64\bin\g++.exe -shared -Wl,--no-undefined -static -static-libgcc -static-libstdc++ -s -o G:\Y13PRGgameProject\GodotExtension\game\bin\libmy_extension.dll -Wl,--out-implib,libmy_extension.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles\my_extension.dir/objects.a -Wl,--no-whole-archive @CMakeFiles\my_extension.dir\linkLibs.rsp
