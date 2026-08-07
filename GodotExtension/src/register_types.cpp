@@ -5,10 +5,14 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+//include and recognise new functions I added
+#include "player.h"
+
 using namespace godot;
 
 void initialize_gdextension_types() {
-    ClassDB::register_class<ExampleNode>();
+    //registe the new function
+    ClassDB::register_class<Player>();
 }
 
 void uninitialize_gdextension_types() {}
