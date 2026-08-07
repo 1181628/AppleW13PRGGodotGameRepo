@@ -1,22 +1,23 @@
-cmake_minimum_required(VERSION 3.20)
-project(my_extension)
+cmake_minimum_required(VERSION 3.22)
+
+project(my_gdextension LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add godot-cpp directory
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/game/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/game/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/game/bin")
+
 add_subdirectory(external/godot-cpp)
 
-# Include source files
-file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
-
-# Create shared library (.dll)
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
-
-# Link godot-cpp library
-target_link_libraries(${PROJECT_NAME} PRIVATE godot::cpp)
-
-# Output final DLL into game/bin/
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/game/bin"
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
+
+add_library(my_gdextension SHARED ${SOURCES})
+
+target_link_libraries(my_gdextension PRIVATE godot::cpp)
+
+target_include_directories(my_gdextension PRIVATE src)
