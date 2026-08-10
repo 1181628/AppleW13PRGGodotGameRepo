@@ -1,7 +1,11 @@
 #ifndef REGISTER_TYPES_H
 #define REGISTER_TYPES_H
 
-void initialize_gdextension_types();
-void uninitialize_gdextension_types();
+#include <godot_cpp/core/class_db.hpp>
 
-#endif // REGISTER_TYPES_H
+using namespace godot;
+
+void initialize_gdextension_types(ModuleInitializationLevel p_level);
+void uninitialize_gdextension_types(ModuleInitializationLevel p_level);
+
+#endif

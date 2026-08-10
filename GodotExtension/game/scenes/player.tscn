@@ -67,7 +67,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_qhqgy"]
 resource_name = "idle"
-length = 0.9333367153439671
+length = 0.9333367153439672
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -136,7 +136,8 @@ _data = {
 &"idle": SubResource("Animation_qhqgy")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=2111237677]
+[node name="Player" type="Player" unique_id=1277351390]
+collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1121969468]
 position = Vector2(-1, -32)
