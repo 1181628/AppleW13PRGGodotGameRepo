@@ -22,6 +22,10 @@ void Player::_ready() {
 
 
 void Player::_physics_process(double delta) {
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+    
     // Access Godot’s input system
     Input * input = Input::get_singleton();
     // Get the player’s current velocity
@@ -34,10 +38,10 @@ void Player::_physics_process(double delta) {
 
     // get movement
     double moveVector_y = 0;
-    if (input->is_action_just_pressed("jump")) {
+    if (input->is_action_just_pressed("ui_accept")) {
         moveVector_y = -1;
     }
-    double moveVector_x = input->get_axis("move_left", "move_right");
+    double moveVector_x = input->get_axis("ui_left", "ui_right");
 
     // jump
     if (moveVector_y == -1 && is_on_floor()) {
