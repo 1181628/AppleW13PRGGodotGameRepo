@@ -351,3 +351,4 @@ tile_set = SubResource("TileSet_j20lk")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2029769544]
 
 [node name="Player" parent="." unique_id=2111237677 instance=ExtResource("2_pw63i")]
+position = Vector2(0, -0.0010416061)
