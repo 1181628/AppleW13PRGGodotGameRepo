@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2xumetvdh2y3"
-path="res://.godot/imported/minecraft tiles just for trial.png-852fbcaae9be83570d5aed6d2b071bbf.ctex"
+uid="uid://cuimaadgodaxr"
+path="res://.godot/imported/player idle.png-676679c204400743f9b69aee17418f9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/minecraft tiles just for trial.png"
-dest_files=["res://.godot/imported/minecraft tiles just for trial.png-852fbcaae9be83570d5aed6d2b071bbf.ctex"]
+source_file="res://assets/player idle.png"
+dest_files=["res://.godot/imported/player idle.png-676679c204400743f9b69aee17418f9e.ctex"]
 
 [params]
 
