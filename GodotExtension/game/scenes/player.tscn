@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://b71tf4hb0p0d4"]
 
-[ext_resource type="Texture2D" uid="uid://bmkmd0wvs4eon" path="res://assets/player/player1.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://bwq8tkbxlx4f8" path="res://assets/player/Player Idle.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://v3fl6d0eiuiw" path="res://assets/player/Player Attack 1.png" id="2_g2els"]
 
-[sub_resource type="Animation" id="Animation_g2els"]
+[sub_resource type="Animation" id="Animation_3vyb7"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -52,23 +53,66 @@ tracks/3/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CollisionPolygon2D:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-6, 0, -6, -30, 8, -30, 8, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_qhqgy"]
-resource_name = "idle"
-length = 0.9333367153439672
+resource_name = "attack horizontally"
+length = 0.6000066979594528
 loop_mode = 1
+step = 0.06666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_g2els")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "idle"
+length = 1.3333400695391
+loop_mode = 1
+step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -112,35 +156,24 @@ tracks/3/path = NodePath("Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.23333333, 0.46666667, 0.7),
+"times": PackedFloat32Array(0, 0.33333334, 0.6666667, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CollisionPolygon2D:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.0650208),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-6, 0, -6, -30, 8, -30, 8, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
 _data = {
-&"RESET": SubResource("Animation_g2els"),
-&"idle": SubResource("Animation_qhqgy")
+&"RESET": SubResource("Animation_3vyb7"),
+&"attack horizontally": SubResource("Animation_qhqgy"),
+&"idle": SubResource("Animation_g2els")
 }
 
 [node name="Player" type="Player" unique_id=1277351390]
 collision_layer = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1121969468]
-position = Vector2(-1, -32)
+position = Vector2(2, -24)
 texture = ExtResource("1_3vyb7")
 hframes = 4
 
@@ -149,4 +182,4 @@ libraries/ = SubResource("AnimationLibrary_dqkch")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1934216425]
 position = Vector2(-1, 0)
-polygon = PackedVector2Array(-6, 0, -6, -30, 8, -30, 8, 0)
+polygon = PackedVector2Array(-5, 0, -5, -30, 6, -30, 6, 0)
