@@ -57,7 +57,6 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_qhqgy"]
 resource_name = "attack horizontally"
 length = 0.6000066979594528
-loop_mode = 1
 step = 0.06666667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -176,6 +175,20 @@ collision_layer = 0
 position = Vector2(2, -24)
 texture = ExtResource("1_3vyb7")
 hframes = 4
+
+[node name="HurtboxArea" type="Area2D" parent="." unique_id=1826775295]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Hurtbox" type="CollisionPolygon2D" parent="HurtboxArea" unique_id=1810043558]
+polygon = PackedVector2Array(5, -30, 5, 0, -6, 0, -6, -30)
+
+[node name="Attack1" type="Area2D" parent="." unique_id=1206360549]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Attack1" type="CollisionPolygon2D" parent="Attack1" unique_id=614848434]
+polygon = PackedVector2Array(13, -19, 18, -19, 28, -17, 34, -14, 36, -12, 36, -7, 33, -4, 29, -2, 19, 0, 8, 0, 5, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=598157436]
 libraries/ = SubResource("AnimationLibrary_dqkch")

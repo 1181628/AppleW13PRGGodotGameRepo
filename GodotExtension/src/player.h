@@ -27,7 +27,10 @@ private:
 	// record the player's initial state
 	State current_state = State::NORMAL;
 
-	AnimationPlayer * animation_player = nullptr;
+	// Records whether the player has just entered a new state
+    bool is_state_new = true;
+
+	void change_state(int new_state);
 
 	void process_normal(double delta);
     void process_dash(double delta);
@@ -35,6 +38,7 @@ private:
     void process_attack_up(double delta);
     void process_attack_down(double delta);
 
+	// Changes the player's animation
     void _update_animation();
 
 protected:
