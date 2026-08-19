@@ -6,6 +6,7 @@
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
 
 using namespace godot;
 
@@ -16,23 +17,23 @@ Player::~Player() {
 }
 
 void Player::_bind_methods() {
-    ClassDB::bind_method(
-        D_METHOD("change_state", "new_state"),
-        &Player::change_state
-    );
+    ClassDB::bind_method(D_METHOD("change_state", "new_state"), &Player::change_state);
 }
 
 void Player::_ready() {
 }
 
-//State Machine: controls which behaviour the player performs
+
+// ======================================== PLAYER STATE MACHINE ========================================
+// The state machine checks the player's current state and calls only the function belonging to that state
+// This tidies and separates the code into parts so that their behaviours do not all run at the same time
 void Player::_physics_process(double delta) {
     // Stop the function running before the game starts
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
     }
 
-    // Check the player's current state every physics frame and run only the code that belongs to that state
+    // Select the correct behaviour using the player's current state
     switch (current_state) {
         case State::NORMAL:
             process_normal(delta);
@@ -61,6 +62,50 @@ void Player::_physics_process(double delta) {
 void Player::change_state(int new_state) {
     current_state = static_cast<State>(new_state);
     is_state_new = true;
+}
+
+void Player::apply_gravity_movement(double delta) {
+    // Access Godot’s input system
+    Input * input = Input::get_singleton();
+    // Get the player’s current velocity
+    Vector2 velocity = get_velocity();
+
+    // gravity
+    if (!is_on_floor()) {
+        velocity.y += gravity * delta;
+    }
+
+    // get movement
+    double moveVector_y = 0;
+    if (input->is_action_just_pressed("ui_accept")) {
+        moveVector_y = -1;
+    }
+    double moveVector_x = input->get_axis("ui_left", "ui_right");
+
+    // jump
+    if (moveVector_y == -1 && is_on_floor()) {
+        velocity.y = jumpSpeed * moveVector_y;
+    }
+
+    // move left and right
+    if (moveVector_x != 0 ) {
+        velocity.x += moveVector_x * horizontal_acceleration * delta;
+    } else {
+        velocity.x = velocity.x / 2;
+    }
+    
+    // limit left right speed
+    if (velocity.x < -maxHorizontalSpeed) {
+        velocity.x = -maxHorizontalSpeed;
+    }
+    if (velocity.x > maxHorizontalSpeed) {
+        velocity.x = maxHorizontalSpeed;
+    }
+
+    // Store modified velocity
+    set_velocity(velocity);
+    // Move the character
+    move_and_slide();
 }
 
 void Player::process_normal(double delta) {
@@ -111,6 +156,8 @@ void Player::process_normal(double delta) {
     move_and_slide();
     // update animations on the character
     _update_animation();
+    // update turning direction
+    _turn_direction();
 }
 
 void Player::process_dash(double delta) {
@@ -122,15 +169,16 @@ void Player::process_attack(double delta) {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
 
     // Play the attack animation once when entering ATTACK
-    if (is_state_new) {animationPlayer->play("attack horizontally");
+    if (is_state_new) {
+        animationPlayer->play("attack horizontally");
     }
 
     // Return to NORMAL when the attack animation finishes
-    if (!animationPlayer->is_playing()) {call_deferred("change_state", static_cast<int>(State::NORMAL));
+    if (!animationPlayer->is_playing()) {
+        call_deferred("change_state", static_cast<int>(State::NORMAL));
     }
 
-    set_velocity(velocity);
-    move_and_slide();
+    apply_gravity_movement(delta);
 }
 
 void Player::process_attack_up(double delta) {
@@ -142,7 +190,33 @@ void Player::process_attack_down(double delta) {
 }
 
 void Player::_update_animation() {
-    AnimationPlayer *animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
+    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
 
     animationPlayer->play("idle");  
+}
+
+void Player::_turn_direction() {
+    Input *input = Input::get_singleton();
+    double moveVector_x =
+        input->get_axis("ui_left", "ui_right");
+
+    Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
+
+    // When the Player moves, flip the sprite to face the direction it was moving toward
+    if (moveVector_x < 0) {
+        sprite->set_flip_h(true);
+    }
+    if (moveVector_x > 0) {
+        sprite->set_flip_h(false);
+    }
+}
+
+void Player::_Hurtbox() {
+    // Access Godot’s input system
+    Input * input = Input::get_singleton();
+    // Get the player’s current velocity
+    Vector2 velocity = get_velocity();
+    
+        
+
 }
