@@ -2,8 +2,8 @@
 
 // Add other includes when needed.
 #include <godot_cpp/classes/animation_player.hpp>
+#include <godot_cpp/classes/engine.hpp>
 // #include <godot_cpp/variant/vector2.hpp>
-// #include <godot_cpp/variant/utility_functions.hpp>
 // #include <godot_cpp/classes/input.hpp>
 
 using namespace godot;
@@ -19,9 +19,18 @@ void Enemy1::_bind_methods() {
 }
 
 void Enemy1::_ready() {
-    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
 
+    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");    
     animationPlayer->play("idle");      
+
+    Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
+    hurtbox_area->connect("area_entered", callable_mp(this, &Enemy1::_on_hurtbox_area_entered));
+
+    Timer *material_timer = get_node<Timer>("MaterialTimer");
+    material_timer->connect("timeout", callable_mp(this, &Enemy1::_on_material_timer_timeout));
 }
 
 
@@ -31,6 +40,15 @@ void Enemy1::_process(double delta) {
     (void)delta;
 
     // Add frame-based behaviour here.
+}
+
+void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
+    get_node<Timer>("MaterialTimer")->start();
+    get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(false);
+}
+
+void Enemy1::_on_material_timer_timeout() {
+    get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(true);
 }
 
 

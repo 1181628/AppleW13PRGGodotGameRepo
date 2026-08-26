@@ -1,7 +1,6 @@
 #include "player.h"
 
 #include <godot_cpp/variant/vector2.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/input.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/animation_player.hpp>
@@ -191,14 +190,29 @@ void Player::process_attack_down(double delta) {
 
 void Player::_update_animation() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
+    Input *input = Input::get_singleton();
+    Vector2 velocity = get_velocity();
+    double moveVector_x = input->get_axis("ui_left", "ui_right");
 
-    animationPlayer->play("idle");  
+    if (!is_on_floor()) {
+        if (velocity.y < 0) {
+            animationPlayer->play("idle");
+        }
+        if (velocity.y > 0) {
+            animationPlayer->play("idle");
+        }
+    }
+    else if (moveVector_x != 0) {
+        animationPlayer->play("idle"); 
+    }
+    else {
+        animationPlayer->play("idle");         
+    }
 }
 
 void Player::_turn_direction() {
     Input *input = Input::get_singleton();
-    double moveVector_x =
-        input->get_axis("ui_left", "ui_right");
+    double moveVector_x = input->get_axis("ui_left", "ui_right");
 
     Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
 
@@ -209,14 +223,4 @@ void Player::_turn_direction() {
     if (moveVector_x > 0) {
         sprite->set_flip_h(false);
     }
-}
-
-void Player::_Hurtbox() {
-    // Access Godot’s input system
-    Input * input = Input::get_singleton();
-    // Get the player’s current velocity
-    Vector2 velocity = get_velocity();
-    
-        
-
 }
