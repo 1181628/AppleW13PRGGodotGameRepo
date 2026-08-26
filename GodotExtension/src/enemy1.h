@@ -1,11 +1,10 @@
 #ifndef ENEMY1_H
 #define ENEMY1_H
 
-#include <godot_cpp/classes/node.hpp>
-
-// Add other Godot classes or data types when needed.
-// #include <godot_cpp/variant/vector2.hpp>
-// #include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/classes/character_body2d.hpp>
+#include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/timer.hpp>
 
 namespace godot {
 
@@ -23,13 +22,14 @@ protected:
     static void _bind_methods();
 
 public:
-    NewClass();
-    ~NewClass();
+    Enemy1();
+    ~Enemy1();
 
     // Keep only the Godot callbacks that the class needs.
     void _ready() override;
     void _process(double delta) override;
-    // void _physics_process(double delta) override;
+    void _on_hurtbox_area_entered(godot::Area2D *area);
+    void _on_material_timer_timeout();
 
     // Declare custom functions here.
     // void take_damage(int damage);
