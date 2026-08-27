@@ -6,6 +6,8 @@
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/sprite2d.hpp>
 
 using namespace godot;
 
@@ -20,6 +22,11 @@ void Player::_bind_methods() {
 }
 
 void Player::_ready() {
+    Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
+    hurtbox_area->connect("area_entered", callable_mp(this, &Player::_on_hurtbox_area_entered));
+
+    Area2D *attack1_area = get_node<Area2D>("Attack1");
+    attack1_area->connect("area_entered", callable_mp(this, &Player::_on_attack1_area_entered));
 }
 
 
@@ -213,14 +220,54 @@ void Player::_update_animation() {
 void Player::_turn_direction() {
     Input *input = Input::get_singleton();
     double moveVector_x = input->get_axis("ui_left", "ui_right");
-
     Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
+    Area2D *attack1_area = get_node<Area2D>("Attack1");
+
+    Area2D *hurtbox_area =
+        get_node<Area2D>("HurtboxArea");
+
 
     // When the Player moves, flip the sprite to face the direction it was moving toward
     if (moveVector_x < 0) {
         sprite->set_flip_h(true);
+
+        Vector2 attack1_scale =attack1_area->get_scale();
+        attack1_scale.x = -1;
+        attack1_area->set_scale(attack1_scale);
+
+        Vector2 hurtbox_scale = hurtbox_area->get_scale();
+        hurtbox_scale.x = -1;
+        hurtbox_area->set_scale(hurtbox_scale);
+
     }
     if (moveVector_x > 0) {
         sprite->set_flip_h(false);
+
+        Vector2 attack1_scale = attack1_area->get_scale();
+        attack1_scale.x = 1;
+        attack1_area->set_scale(attack1_scale);
+
+        Vector2 hurtbox_scale = hurtbox_area->get_scale();
+        hurtbox_scale.x = 1;
+        hurtbox_area->set_scale(hurtbox_scale);
     }
+}
+
+void Player::_on_hurtbox_area_entered(Area2D *area) {
+    // Reduce player health here
+}
+
+void Player::_on_attack1_area_entered(Area2D *area) {
+    Sprite2D *sprite = get_node<Sprite2D>("Sprite2D");
+    Vector2 player_position = get_global_position();
+
+    if (!sprite->is_flipped_h()) {
+        // Facing to the right, the player moves backward to the left
+        player_position.x -= 2;
+    } else {
+        // Facing to the left, the player moves backward to the right
+        player_position.x += 2;
+    }
+
+    set_global_position(player_position);
 }

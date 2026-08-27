@@ -4,6 +4,7 @@
 #include <godot_cpp/classes/character_body2d.hpp>
 #include <godot_cpp/variant/vector2.hpp>
 #include <godot_cpp/classes/animation_player.hpp>
+#include <godot_cpp/classes/area2d.hpp>
 
 namespace godot {
 
@@ -52,6 +53,8 @@ public:
 
 	void _ready() override;
 	void _physics_process(double delta) override;
+	void _on_hurtbox_area_entered(godot::Area2D *area);
+	void _on_attack1_area_entered(godot::Area2D *area);
 };
 
 }

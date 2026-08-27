@@ -16,15 +16,13 @@ Enemy1::~Enemy1() {
 }
 
 void Enemy1::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("change_state", "new_state"), &Enemy1::change_state);
 }
 
 void Enemy1::_ready() {
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-
-    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");    
-    animationPlayer->play("idle");      
 
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
     hurtbox_area->connect("area_entered", callable_mp(this, &Enemy1::_on_hurtbox_area_entered));
@@ -33,13 +31,46 @@ void Enemy1::_ready() {
     material_timer->connect("timeout", callable_mp(this, &Enemy1::_on_material_timer_timeout));
 }
 
+// ======================================== ENEMY1 STATE MACHINE ========================================
+// The state machine checks the enemy1's current state and calls only the function belonging to that state
+// This tidies and separates the code into parts so that their behaviours do not all run at the same time
+void Enemy1::_process(double delta) {
+    // Stop the function running before the game starts
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
+    // Select the correct behaviour using the enemy1's current state
+    switch (current_state) {
+        case State::NORMAL:
+            process_normal(delta);
+            break;
+
+        case State::ATTACK:
+            process_attack(delta);
+            break;
+    }
+    is_state_new = false;
+}
+
+// Change the enemy1's current state to the given new state
+void Enemy1::change_state(int new_state) {
+    current_state = static_cast<State>(new_state);
+    is_state_new = true;
+}
 
 // Runs every rendered frame.
-void Enemy1::_process(double delta) {
+void Enemy1::process_normal(double delta) {
     // Remove this line when delta is used.
     (void)delta;
 
-    // Add frame-based behaviour here.
+    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");    
+    animationPlayer->play("idle");     
+
+}
+
+void Enemy1::process_attack(double delta) {
+    current_state = State::NORMAL;
 }
 
 void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
@@ -50,24 +81,3 @@ void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
 void Enemy1::_on_material_timer_timeout() {
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(true);
 }
-
-
-// Use this instead of _process() for movement and physics.
-// It must also be declared in the .h file.
-// void NewClass::_physics_process(double delta) {
-//     (void)delta;
-//
-//     // Add movement, gravity, and physics behaviour here.
-// }
-
-
-// Define custom functions here.
-// void NewClass::take_damage(int damage) {
-// }
-//
-// void NewClass::attack() {
-// }
-//
-// bool NewClass::is_alive() const {
-//     return true;
-// }

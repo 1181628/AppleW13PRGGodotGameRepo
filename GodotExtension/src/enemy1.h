@@ -13,10 +13,20 @@ class Enemy1 : public CharacterBody2D {
     GDCLASS(Enemy1, CharacterBody2D);
 
 private:
-    // Add variables that the class needs to store.
-    // int health = 100;
-    // double move_speed = 200.0;
-    // bool is_active = true;
+    // all possible enemy1 states
+	enum class State {
+        NORMAL,
+        ATTACK,
+    };
+	// record the enemy1's initial state
+	State current_state = State::NORMAL;
+
+	// Records whether the enemy1 has just entered a new state
+    bool is_state_new = true;
+	void change_state(int new_state);
+
+    void process_normal(double delta);
+    void process_attack(double delta);
 
 protected:
     static void _bind_methods();
