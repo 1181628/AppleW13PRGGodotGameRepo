@@ -5,6 +5,7 @@
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/sprite2d.hpp>
 #include <godot_cpp/classes/timer.hpp>
+#include <godot_cpp/variant/vector2.hpp>
 
 namespace godot {
 
@@ -13,9 +14,12 @@ class Enemy1 : public CharacterBody2D {
     GDCLASS(Enemy1, CharacterBody2D);
 
 private:
+    double gravity = 1000;
+
     // all possible enemy1 states
 	enum class State {
         NORMAL,
+        WALK,
         ATTACK,
     };
 	// record the enemy1's initial state
@@ -26,7 +30,10 @@ private:
 	void change_state(int new_state);
 
     void process_normal(double delta);
+    void process_walk(double delta);
     void process_attack(double delta);
+
+    void _turn_direction();
 
 protected:
     static void _bind_methods();

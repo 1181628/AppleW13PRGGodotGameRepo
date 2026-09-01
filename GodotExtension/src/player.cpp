@@ -222,10 +222,7 @@ void Player::_turn_direction() {
     double moveVector_x = input->get_axis("ui_left", "ui_right");
     Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
     Area2D *attack1_area = get_node<Area2D>("Attack1");
-
-    Area2D *hurtbox_area =
-        get_node<Area2D>("HurtboxArea");
-
+    Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
 
     // When the Player moves, flip the sprite to face the direction it was moving toward
     if (moveVector_x < 0) {
