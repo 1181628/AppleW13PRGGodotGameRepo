@@ -68,7 +68,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_qhqgy"]
 resource_name = "attack horizontally"
-length = 0.12000099731776863
+length = 0.12000099731776864
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
