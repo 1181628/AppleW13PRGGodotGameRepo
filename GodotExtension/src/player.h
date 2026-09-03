@@ -13,9 +13,11 @@ class Player : public CharacterBody2D {
 
 private:
 	double gravity = 580.0;
-    double horizontal_acceleration = 2000.0;
+    double horizontalAcceleration = 2000.0;
 	double maxHorizontalSpeed = 120.0;
 	double jumpSpeed = 250.0;
+	bool isInvincible = false;
+	String hurtDirection;
 
 	// all possible player states
 	enum class State {
@@ -23,7 +25,9 @@ private:
         DASH,
         ATTACK,
         ATTACK_UP,
-        ATTACK_DOWN
+        ATTACK_DOWN,
+		HURT,
+		DIE
     };
 	// record the player's initial state
 	State current_state = State::NORMAL;
@@ -38,9 +42,15 @@ private:
     void process_attack(double delta);
     void process_attack_up(double delta);
     void process_attack_down(double delta);
+	void process_hurt(double delta);
+	void process_die(double delta);
 
 	// Changes the player's animation
     void _update_animation();
+
+	void start_invincibility();
+	void _on_flash_timer_timeout();
+	void _on_invincibility_timer_timeout();
 
 	void _turn_direction();
 

@@ -15,12 +15,16 @@ class Enemy1 : public CharacterBody2D {
 
 private:
     double gravity = 1000;
+    double walkSpeed = 40;
+    double attackRange = 35;
+    double Health = 1000;
 
     // all possible enemy1 states
 	enum class State {
         NORMAL,
         WALK,
         ATTACK,
+        DIE
     };
 	// record the enemy1's initial state
 	State current_state = State::NORMAL;
@@ -32,8 +36,12 @@ private:
     void process_normal(double delta);
     void process_walk(double delta);
     void process_attack(double delta);
+    void process_die(double delta);
 
     void _turn_direction();
+
+    godot::Vector2 playerPosition;
+    void match_player_position();   
 
 protected:
     static void _bind_methods();
@@ -47,11 +55,6 @@ public:
     void _process(double delta) override;
     void _on_hurtbox_area_entered(godot::Area2D *area);
     void _on_material_timer_timeout();
-
-    // Declare custom functions here.
-    // void take_damage(int damage);
-    // void attack();
-    // bool is_alive() const;
 };
 
 }
