@@ -1,5 +1,6 @@
 #include "player.h"
 #include "playerStatus.h"
+#include "interactable.h"
 
 #include <godot_cpp/variant/vector2.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -48,7 +49,7 @@ void Player::_physics_process(double delta) {
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
     }
-    
+
     //  Runs the behaviour belonging to the current state
     switch (current_state) {
         case State::NORMAL:
@@ -452,4 +453,14 @@ void Player::_on_attack1_area_entered(Area2D *area) {
 
     // Applies the changed position
     set_global_position(player_position);
+}
+
+void Player::_unhandled_input(const Ref<InputEvent> &event) {
+    // Interacts with the nearby object when the interact key is pressed
+    if (
+        event->is_action_pressed("interact") &&
+        interactingWith != nullptr
+    ) {
+        interactingWith->interact();
+    }
 }

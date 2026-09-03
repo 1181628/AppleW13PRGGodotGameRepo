@@ -8,6 +8,9 @@
 #include "player.h"
 #include "enemy1.h"
 #include "playerStatus.h"
+#include "interactable.h"
+#include "teleporter.h"
+#include "titleScreen.h"
 
 using namespace godot;
 
@@ -20,6 +23,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Player>();
     ClassDB::register_class<Enemy1>();
     ClassDB::register_class<PlayerStatus>();
+    ClassDB::register_class<Interactable>();
+    ClassDB::register_class<Teleporter>();
+    ClassDB::register_class<TitleScreen>();
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

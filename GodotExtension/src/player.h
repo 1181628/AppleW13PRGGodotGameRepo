@@ -5,8 +5,12 @@
 #include <godot_cpp/variant/vector2.hpp>
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/classes/area2d.hpp>
+#include <godot_cpp/classes/input_event.hpp>
 
 namespace godot {
+
+// Tells Player that the Interactable class exists
+class Interactable;
 
 class Player : public CharacterBody2D {
 	GDCLASS(Player, CharacterBody2D);
@@ -60,6 +64,10 @@ protected:
 public:
 	Player();
 	~Player();
+
+	// Stores the Interactable currently near the Player
+	Interactable *interactingWith = nullptr;	
+	void _unhandled_input(const Ref<InputEvent> &event) override;
 
 	void _ready() override;
 	void _physics_process(double delta) override;

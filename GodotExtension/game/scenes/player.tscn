@@ -399,7 +399,7 @@ _data = {
 }
 
 [node name="Player" type="Player" unique_id=1504281332]
-collision_layer = 0
+collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1121969468]
 position = Vector2(2, -24)
