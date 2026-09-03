@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dbjveg20n0ohw"]
+
+[node name="TitleScreen" type="Control" unique_id=941450221]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=440757244]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 18.0
+offset_bottom = 41.0
+grow_horizontal = 2
+text = "Title"
+horizontal_alignment = 1
+
+[node name="V" type="VBoxContainer" parent="." unique_id=616898915]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="NewGame" type="Button" parent="V" unique_id=1181535377]
+layout_mode = 2
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="V" unique_id=1357329580]
+layout_mode = 2
+text = "Load Game"
+
+[node name="ExitGame" type="Button" parent="V" unique_id=759913996]
+layout_mode = 2
+text = "Exit Game"

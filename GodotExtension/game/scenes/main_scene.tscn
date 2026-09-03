@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://7png4di5432h"]
 
 [ext_resource type="Texture2D" uid="uid://dgaaugr0u44vn" path="res://assets/tiles/tile.png" id="2_7ykc4"]
+[ext_resource type="PackedScene" uid="uid://dgryepqiv2is0" path="res://scenes/GameObjects/Teleportation door.tscn" id="2_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://b71tf4hb0p0d4" path="res://scenes/player.tscn" id="2_pw63i"]
 [ext_resource type="PackedScene" uid="uid://bghpguurcx23w" path="res://scenes/enemy1.tscn" id="3_7ykc4"]
 
@@ -180,6 +181,9 @@ sources/0 = SubResource("TileSetAtlasSource_pu3yx")
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2056906540]
 tile_map_data = PackedByteArray("AAAIAAQAAAACAAAAAAAIAAUAAAACAAEAAAAJAAQAAAACAAAAAAAJAAUAAAACAAEAAAAKAAQAAAACAAAAAAAKAAUAAAACAAEAAAAFAAQAAAACAAAAAAAFAAUAAAACAAEAAAAGAAQAAAACAAAAAAAGAAUAAAACAAEAAAAHAAQAAAACAAAAAAAHAAUAAAACAAEAAAACAAQAAAABAAAAAAACAAUAAAABAAEAAAADAAQAAAABAAAAAAADAAUAAAABAAEAAAAEAAQAAAACAAAAAAAEAAUAAAACAAEAAAD//wQAAAABAAAAAAD//wUAAAABAAEAAAAAAAQAAAABAAAAAAAAAAUAAAABAAEAAAABAAQAAAABAAAAAAABAAUAAAABAAEAAAD8/wQAAAABAAAAAAD8/wUAAAABAAEAAAD9/wQAAAABAAAAAAD9/wUAAAABAAEAAAD+/wQAAAABAAAAAAD+/wUAAAABAAEAAAD5/wQAAAAAAAAAAAD5/wUAAAAAAAEAAAD6/wQAAAAAAAAAAAD6/wUAAAAAAAEAAAD7/wQAAAAAAAAAAAD7/wUAAAAAAAEAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAEAAAD3/wQAAAAAAAAAAAD3/wUAAAAAAAEAAAD4/wQAAAAAAAAAAAD4/wUAAAAAAAEAAAD0/wQAAAAAAAAAAAD0/wUAAAAAAAEAAAD1/wQAAAAAAAAAAAD1/wUAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_xmr8x")
+
+[node name="Teleporter" parent="TileMapLayer" unique_id=1199749779 instance=ExtResource("2_pu3yx")]
+position = Vector2(137, 53)
 
 [node name="Enemy1" parent="." unique_id=463808015 instance=ExtResource("3_7ykc4")]
 position = Vector2(34.98924, 80)

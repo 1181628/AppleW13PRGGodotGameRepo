@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dgryepqiv2is0"]
+
+[ext_resource type="Texture2D" uid="uid://4lnftnxsvtiu" path="res://assets/gameObjects/Teleportation door.png" id="1_lqyh8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j20lk"]
+radius = 13.0
+height = 34.0
+
+[node name="Teleporter" type="Teleporter" unique_id=1199749779]
+collision_layer = 0
+collision_mask = 2
+
+[node name="TeleportationDoor" type="Sprite2D" parent="." unique_id=2002722364]
+position = Vector2(-3, 0)
+texture = ExtResource("1_lqyh8")
+region_enabled = true
+region_rect = Rect2(47, 28, 30, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1895166003]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_j20lk")
