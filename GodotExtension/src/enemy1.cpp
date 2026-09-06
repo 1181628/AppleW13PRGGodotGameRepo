@@ -1,4 +1,5 @@
 #include "enemy1.h"
+#include "playerStatus.h"
 
 // Add other includes when needed.
 #include <godot_cpp/classes/animation_player.hpp>
@@ -36,6 +37,7 @@ void Enemy1::_process(double delta) {
         return;
     }
 
+    // Find Player's position
     match_player_position();
 
     //  Runs the behaviour belonging to the current state
@@ -223,9 +225,11 @@ void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(false);
     StringName areaName = area->get_name();
 
+    PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
+
     // Only deal damage if the entering area is the Player's Attack1 hitbox
     if (areaName == StringName("Attack1")) {
-        Health -= 100;
+        Health -= player_status->attackDamage;
     }
 
     // Change state to DIE when Enemy1 has no health remaining

@@ -1,6 +1,7 @@
 #include "teleporter.h"
 
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
 
 using namespace godot;
 
@@ -18,5 +19,5 @@ void Teleporter::interact() {
     Interactable::interact();
 
     // Changes to the target scene
-    get_tree()->change_scene_to_file(path);
+    get_tree()->call_group("room_manager", "go_to_next_room");
 }

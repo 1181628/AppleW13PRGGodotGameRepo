@@ -7,7 +7,9 @@
 // Allows Godot to recognise and use the classes we created in C++ by including their header files
 #include "player.h"
 #include "enemy1.h"
+#include "roomManager.h"
 #include "playerStatus.h"
+#include "playerStatusBar.h"
 #include "interactable.h"
 #include "teleporter.h"
 #include "titleScreen.h"
@@ -22,7 +24,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level) {
     // Registers the C++ class with Godot's ClassDB so it can appear under its assigned parent class and be used as a node in Godot
     ClassDB::register_class<Player>();
     ClassDB::register_class<Enemy1>();
+    ClassDB::register_class<RoomManager>();
     ClassDB::register_class<PlayerStatus>();
+    ClassDB::register_class<PlayerStatusBar>();
     ClassDB::register_class<Interactable>();
     ClassDB::register_class<Teleporter>();
     ClassDB::register_class<TitleScreen>();

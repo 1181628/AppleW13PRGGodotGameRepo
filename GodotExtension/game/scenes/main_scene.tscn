@@ -185,8 +185,12 @@ tile_set = SubResource("TileSet_xmr8x")
 [node name="Teleporter" parent="TileMapLayer" unique_id=1199749779 instance=ExtResource("2_pu3yx")]
 position = Vector2(137, 53)
 
-[node name="Enemy1" parent="." unique_id=463808015 instance=ExtResource("3_7ykc4")]
-position = Vector2(34.98924, 80)
-
 [node name="Player" parent="." unique_id=2111237677 instance=ExtResource("2_pw63i")]
 position = Vector2(-105, 79.99908)
+
+[node name="RoomObjects" type="Node2D" parent="." unique_id=1384451113]
+
+[node name="Enemy1" parent="RoomObjects" unique_id=463808015 instance=ExtResource("3_7ykc4")]
+position = Vector2(88, 80)
+
+[node name="RoomManager" type="RoomManager" parent="." unique_id=26832653]

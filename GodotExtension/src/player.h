@@ -18,8 +18,10 @@ class Player : public CharacterBody2D {
 private:
 	double gravity = 580.0;
     double horizontalAcceleration = 2000.0;
-	double maxHorizontalSpeed = 120.0;
-	double jumpSpeed = 250.0;
+	
+	double maxHorizontalSpeed;	
+	double jumpHeight;
+
 	bool isInvincible = false;
 	String hurtDirection;
 
