@@ -1,5 +1,6 @@
 #include "player.h"
 #include "playerStatus.h"
+#include "playerStatusBar.h"
 #include "interactable.h"
 
 #include <godot_cpp/variant/vector2.hpp>
@@ -49,6 +50,10 @@ void Player::_physics_process(double delta) {
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
     }
+
+    PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
+    maxHorizontalSpeed = player_status->maxHorizontalSpeed;
+    jumpHeight = player_status->jumpHeight;
 
     //  Runs the behaviour belonging to the current state
     switch (current_state) {
@@ -111,7 +116,7 @@ void Player::process_normal(double delta) {
 
     // Jump
     if (moveVector_y == -1 && is_on_floor()) {
-        velocity.y = jumpSpeed * moveVector_y;
+        velocity.y = jumpHeight * moveVector_y;
     }
 
     // Move left and right
@@ -246,6 +251,9 @@ void Player::process_die(double delta) {
     if (!is_on_floor()) {
         velocity.y += gravity * delta;
     }
+
+    velocity.x = 0;
+
     set_velocity(velocity);
     move_and_slide();
 
@@ -306,7 +314,7 @@ void Player::apply_gravity_movement(double delta) {
 
     // jump
     if (moveVector_y == -1 && is_on_floor()) {
-        velocity.y = jumpSpeed * moveVector_y;
+        velocity.y = jumpHeight * moveVector_y;
     }
 
     // move left and right
@@ -413,11 +421,13 @@ void Player::_on_hurtbox_area_entered(Area2D *area) {
         return;
     }
 
-    PlayerStatus *player_status = get_node<PlayerStatus>("/root/Status");
+    PlayerStatusBar *player_status_bar = get_node<PlayerStatusBar>("/root/StatusBar");
+    PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
+
     // Reduces the Player's health
-    player_status->playerStatusValue -= 1;
+    player_status->take_damage(1);
     // Updates the health bar animation
-    player_status->refresh_player_status();
+    player_status_bar->refresh_player_status();
 
     // Checks whether the attack came from which side
     if (area->get_global_position().x > get_global_position().x) {
@@ -428,7 +438,7 @@ void Player::_on_hurtbox_area_entered(Area2D *area) {
     }
 
     // Change state to DIE if Player has no more health otherwise change state to HURT
-    if (player_status->playerStatusValue <= 0) {
+    if (player_status->health <= 0) {
         call_deferred("change_state", static_cast<int>(State::DIE));
     }
     else {

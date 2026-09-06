@@ -122,7 +122,7 @@ _data = {
 &"RESET": SubResource("Animation_k4yyl")
 }
 
-[node name="PlayerStatus" type="PlayerStatus" unique_id=1318719077]
+[node name="PlayerStatusBar" type="PlayerStatusBar" unique_id=1397900211]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1018523614]
 position = Vector2(57, 15)

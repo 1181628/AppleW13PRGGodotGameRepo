@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Status="*uid://rc85pearhovd"
+PlayerStatusData="*uid://csw55qocqrhtg"
+StatusBar="*uid://rc85pearhovd"
 
 [display]
 
