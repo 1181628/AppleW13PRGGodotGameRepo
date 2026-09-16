@@ -28,10 +28,7 @@ private:
 	// all possible player states
 	enum class State {
         NORMAL,
-        DASH,
         ATTACK,
-        ATTACK_UP,
-        ATTACK_DOWN,
 		HURT,
 		DIE
     };
@@ -44,10 +41,7 @@ private:
 
 	void apply_gravity_movement(double delta);
 	void process_normal(double delta);
-    void process_dash(double delta);
     void process_attack(double delta);
-    void process_attack_up(double delta);
-    void process_attack_down(double delta);
 	void process_hurt(double delta);
 	void process_die(double delta);
 

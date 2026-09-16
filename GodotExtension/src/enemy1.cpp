@@ -1,5 +1,6 @@
 #include "enemy1.h"
 #include "playerStatus.h"
+#include "roomManager.h"
 
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -239,6 +240,11 @@ void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
 
     // Change state to DIE when Enemy1 has no health remaining
     if (Health <= 0) {
+        Node *room_manager_node = get_tree()->get_first_node_in_group("room_manager");
+        RoomManager *room_manager = Object::cast_to<RoomManager>(room_manager_node);
+        // Tells RoomManager that one enemy in this room has died
+        room_manager->enemy_died();
+
         call_deferred("change_state", static_cast<int>(State::DIE));
     }
 

@@ -1,10 +1,11 @@
 #include "roomManager.h"
+#include "saveManager.h"
 
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/packed_scene.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/core/object.hpp>
 
 using namespace godot;
@@ -74,8 +75,12 @@ void RoomManager::load_room(int room_id) {
     // Records that Player is now in this room
     current_room_id = room_id;
 
-    Node *room_objects = get_node<Node>("../RoomObjects");
+    // Every newly entered room starts with no defeated enemies
+    defeated_enemy_count = 0;
+    room_is_cleared = false;
+
     // Removes objects from the previous room
+    Node *room_objects = get_node<Node>("../RoomObjects");
     for (int i = room_objects->get_child_count() - 1; i >= 0; i--) {
         room_objects->get_child(i)->queue_free();
     }
@@ -95,12 +100,40 @@ void RoomManager::load_room(int room_id) {
             enemy_node->set_global_position(enemy_spawn.position);
         }
     }
-
-    UtilityFunctions::print("Entered Room: ", current_room_id);
+    save_current_progress();
 }
 
 void RoomManager::go_to_next_room() {
     int next_room_id = current_room_id + 1;
 
     load_room(next_room_id);
+}
+
+void RoomManager::save_current_progress() {
+    // Finds SaveManager beside RoomManager
+    Node *save_manager_node = get_node_or_null(NodePath("../SaveManager"));
+    SaveManager *save_manager = Object::cast_to<SaveManager>(save_manager_node);
+
+    save_manager->save_game(current_room_id);
+}
+
+void RoomManager::enemy_died() {
+    // Records one defeated enemy
+    defeated_enemy_count += 1;
+
+    int total_enemy_count = static_cast<int>(rooms[current_room_id].enemies.size());
+
+    if (total_enemy_count == 0) {
+        return;
+    }
+
+    // The room is cleared only when every spawned enemy has died
+    if (defeated_enemy_count >= total_enemy_count) {
+        room_is_cleared = true;
+
+        UtilityFunctions::print("Room Cleared!");
+
+        // Later: play the room-clear camera shake here.
+        // Next step: open the Reward Screen here.
+    }
 }
