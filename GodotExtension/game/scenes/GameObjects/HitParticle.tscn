@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ktpxc83s88c1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jude3"]
+load_path = "res://.godot/imported/hit particle.png-9dbd229f058472af29b6c8809f9f1afe.ctex"
+
+[sub_resource type="Curve" id="Curve_qjtkh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.063241124), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="HitParticle" type="CPUParticles2D" unique_id=1182320173]
+emitting = false
+amount = 15
+texture = SubResource("CompressedTexture2D_jude3")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qjtkh")

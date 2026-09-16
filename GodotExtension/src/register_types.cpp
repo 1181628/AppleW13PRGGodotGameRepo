@@ -12,6 +12,7 @@
 #include "playerStatusBar.h"
 #include "interactable.h"
 #include "teleporter.h"
+#include "gameCamera.h"
 #include "titleScreen.h"
 
 using namespace godot;
@@ -29,6 +30,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level) {
     ClassDB::register_class<PlayerStatusBar>();
     ClassDB::register_class<Interactable>();
     ClassDB::register_class<Teleporter>();
+    ClassDB::register_class<GameCamera>();
     ClassDB::register_class<TitleScreen>();
 }
 

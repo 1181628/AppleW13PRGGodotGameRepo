@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7qnpwdip1wli"
-path="res://.godot/imported/Player Idle.png-18fb94ce3e10d5d2ec3e5d73adb478a0.ctex"
+uid="uid://bg1gfoqmrb0sh"
+path="res://.godot/imported/railing1.png-5533347fef86870806d950da2ac8ff9a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/Player Idle.png"
-dest_files=["res://.godot/imported/Player Idle.png-18fb94ce3e10d5d2ec3e5d73adb478a0.ctex"]
+source_file="res://assets/tiles/railing1.png"
+dest_files=["res://.godot/imported/railing1.png-5533347fef86870806d950da2ac8ff9a.ctex"]
 
 [params]
 
