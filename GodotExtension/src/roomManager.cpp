@@ -20,7 +20,7 @@ void RoomManager::_bind_methods() {
 }
 
 void RoomManager::_ready() {
-    // Lets Teleporter find this RoomManager.
+    // Lets Teleporter find this RoomManager
     add_to_group("room_manager");
 
     create_room_data();
@@ -42,6 +42,32 @@ void RoomManager::create_room_data() {
             { EnemyType::ENEMY1, Vector2(88, 80) }
         }
     });
+
+    // Room 2: Random enemy room 2
+    rooms.push_back(RoomInfo{2, {
+            { EnemyType::ENEMY1, Vector2(35, 80) }
+        }
+    });
+
+    // Room 3: Random enemy room 3
+    rooms.push_back(RoomInfo{3, {
+            { EnemyType::ENEMY1, Vector2(35, 80) },
+            { EnemyType::ENEMY1, Vector2(50, 80) },
+            { EnemyType::ENEMY1, Vector2(88, 80) }
+        }
+    });
+
+    // Room 3: Random enemy room 4
+    rooms.push_back(RoomInfo{4, {
+            //
+        }
+    });
+
+    // Room 3: Random enemy room 5
+    rooms.push_back(RoomInfo{5, {
+            //
+        }
+    });
 }
 
 void RoomManager::load_room(int room_id) {
@@ -55,6 +81,7 @@ void RoomManager::load_room(int room_id) {
     }
 
     Ref<PackedScene> enemy1_scene = ResourceLoader::get_singleton()->load("res://scenes/enemy1.tscn");
+
     // Reads every enemy listed in the current room.
     for (const EnemySpawn &enemy_spawn : rooms[current_room_id].enemies) {
         // If ENEMY1 needs to spawn

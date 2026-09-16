@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://biri8gnjvlsh2" path="res://assets/enemy/Enemy1 Death.png" id="3_ncnv8"]
 [ext_resource type="Texture2D" uid="uid://c5aek0thavqqp" path="res://assets/enemy/Enemy1 GetHit.png" id="4_iolyx"]
 [ext_resource type="Texture2D" uid="uid://b5ff7hgd8se52" path="res://assets/enemy/Enemy1 Walk.png" id="4_lowyn"]
+[ext_resource type="PackedScene" uid="uid://ktpxc83s88c1" path="res://scenes/GameObjects/HitParticle.tscn" id="7_ye30t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qwcan"]
 shader = ExtResource("1_nb0t0")
@@ -180,7 +181,7 @@ tracks/6/path = NodePath("AttackHitboxArea/AttackHitbox:disabled")
 tracks/6/interp = 0
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.1),
+"times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -522,15 +523,17 @@ hframes = 4
 libraries/ = SubResource("AnimationLibrary_n665k")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=3690993]
-position = Vector2(4, 0)
-polygon = PackedVector2Array(-14, 0, 16, 0, 16, -38, -14, -38)
+position = Vector2(4.520832, 0)
+scale = Vector2(0.9791667, 1)
+polygon = PackedVector2Array(-14, 0, 14.787235, 0, 14.787235, -19, 14.787235, -38, -14, -38)
 
 [node name="HurtboxArea" type="Area2D" parent="." unique_id=952195557]
 collision_layer = 4
 collision_mask = 8
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="HurtboxArea" unique_id=1434738807]
-position = Vector2(4, 0)
+position = Vector2(4.041666, 0)
+scale = Vector2(0.95833343, 1)
 polygon = PackedVector2Array(-14, -28, -14, 0, 11, 0, 16, 0, 16, -27, 16, -38, -14, -38)
 
 [node name="BodyHitboxArea" type="Area2D" parent="." unique_id=4913866]
@@ -538,7 +541,8 @@ collision_layer = 16
 collision_mask = 2
 
 [node name="BodyHitbox" type="CollisionPolygon2D" parent="BodyHitboxArea" unique_id=1389754470]
-position = Vector2(4, 0)
+position = Vector2(4.041666, 0)
+scale = Vector2(0.9583333, 1)
 polygon = PackedVector2Array(-14, -38, -14, 0, 16, 0, 16, -38)
 
 [node name="AttackHitboxArea" type="Area2D" parent="." unique_id=853999572]
@@ -550,3 +554,5 @@ disabled = true
 
 [node name="MaterialTimer" type="Timer" parent="." unique_id=729944645]
 wait_time = 0.1
+
+[node name="HitParticle" parent="." unique_id=1182320173 instance=ExtResource("7_ye30t")]

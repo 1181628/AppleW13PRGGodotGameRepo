@@ -1,6 +1,7 @@
-#include "enemy1.h"
+#include "enemy2.h"
 #include "playerStatus.h"
 
+// Add other includes when needed.
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/node2d.hpp>
@@ -11,27 +12,27 @@
 
 using namespace godot;
 
-Enemy1::Enemy1() {
+Enemy2::Enemy2() {
 }
 
-Enemy1::~Enemy1() {
+Enemy2::~Enemy2() {
 }
 
-void Enemy1::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("change_state", "new_state"), &Enemy1::change_state);
+void Enemy2::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("change_state", "new_state"), &Enemy2::change_state);
 }
 
-void Enemy1::_ready() {
-    // Connects Enemy1's hurtbox signal
+void Enemy2::_ready() {
+    // Connects Enemy2's hurtbox signal
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
-    hurtbox_area->connect("area_entered", callable_mp(this, &Enemy1::_on_hurtbox_area_entered));
+    hurtbox_area->connect("area_entered", callable_mp(this, &Enemy2::_on_hurtbox_area_entered));
     // Connects the material timer signal
     Timer *material_timer = get_node<Timer>("MaterialTimer");
-    material_timer->connect("timeout", callable_mp(this, &Enemy1::_on_material_timer_timeout));
+    material_timer->connect("timeout", callable_mp(this, &Enemy2::_on_material_timer_timeout));
 }
 
-// ================================== ENEMY1 STATE MACHINE ===================================
-void Enemy1::_process(double delta) {
+// ================================== Enemy2 STATE MACHINE ===================================
+void Enemy2::_process(double delta) {
     // Stop the function running before the game starts
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
@@ -62,21 +63,21 @@ void Enemy1::_process(double delta) {
     is_state_new = false;
 }
 
-// Change the enemy1's current state to the given new state
-void Enemy1::change_state(int new_state) {
+// Change the Enemy2's current state to the given new state
+void Enemy2::change_state(int new_state) {
     current_state = static_cast<State>(new_state);
     is_state_new = true;
 }
 
 // ================================== NORMAL STATE ===================================
-void Enemy1::process_normal(double delta) {
+void Enemy2::process_normal(double delta) {
     // Remove this line when delta is used
-    // There will be a gravity effect added to Enemy1 but not now
+    // There will be a gravity effect added to Enemy2 but not now
     (void)delta;
 
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
 
-    // Stops all movement while Enemy1 is idle
+    // Stops all movement while Enemy2 is idle
     Vector2 velocity = get_velocity();
     velocity.x = 0;
     velocity.y = 0;    
@@ -91,7 +92,7 @@ void Enemy1::process_normal(double delta) {
     }
     // Selects the next state after idle finishes
     if (!animationPlayer->is_playing()) {
-        // Calculates the horizontal distance between Enemy1 and Player
+        // Calculates the horizontal distance between Enemy2 and Player
         double distance = std::abs(playerPosition.x - get_global_position().x);
         // Attack when the Player is less than 80 pixels away else move closer
         if (distance < attackRange) {
@@ -103,7 +104,7 @@ void Enemy1::process_normal(double delta) {
 }
 
 // ================================== WALK STATE ===================================
-void Enemy1::process_walk(double delta) {
+void Enemy2::process_walk(double delta) {
     (void)delta;
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");   
     Vector2 velocity = get_velocity();
@@ -133,7 +134,7 @@ void Enemy1::process_walk(double delta) {
 }
 
 // ================================== ATTACK STATE ===================================
-void Enemy1::process_attack(double delta) {
+void Enemy2::process_attack(double delta) {
     (void)delta;
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
     Vector2 velocity = get_velocity();  
@@ -155,7 +156,7 @@ void Enemy1::process_attack(double delta) {
 }
 
 // ================================== DIE STATE ===================================
-void Enemy1::process_die(double delta) {
+void Enemy2::process_die(double delta) {
     (void)delta;
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
 
@@ -171,7 +172,7 @@ void Enemy1::process_die(double delta) {
     }
 }
 
-void Enemy1::_turn_direction() {
+void Enemy2::_turn_direction() {
     Area2D *attackhitbox_area = get_node<Area2D>("AttackHitboxArea");
     Area2D *bodyhitbox_area = get_node<Area2D>("BodyHitboxArea");
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
@@ -179,7 +180,7 @@ void Enemy1::_turn_direction() {
 
     double direction;
 
-    // Checks whether the Player is on the left side of Enemy1
+    // Checks whether the Player is on the left side of Enemy2
     if (playerPosition.x < get_global_position().x) {
         // Face left
         direction = 1;
@@ -207,7 +208,7 @@ void Enemy1::_turn_direction() {
     attackhitbox_area->set_scale(attackhitbox_scale);
 }
 
-void Enemy1::match_player_position() {
+void Enemy2::match_player_position() {
     TypedArray<Node> players = get_tree()->get_nodes_in_group("player");
 
     if (players.size() > 0) {
@@ -219,8 +220,8 @@ void Enemy1::match_player_position() {
     }
 }
 
-// Runs when another Area2D enters the Enemy1's hurtbox
-void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
+// Runs when another Area2D enters the Enemy2's hurtbox
+void Enemy2::_on_hurtbox_area_entered(Area2D *area) {
     get_node<Timer>("MaterialTimer")->start();
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(false);
     StringName areaName = area->get_name();
@@ -237,14 +238,14 @@ void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
         Health -= player_status->attackDamage;
     }
 
-    // Change state to DIE when Enemy1 has no health remaining
+    // Change state to DIE when Enemy2 has no health remaining
     if (Health <= 0) {
         call_deferred("change_state", static_cast<int>(State::DIE));
     }
 
 }
 
-// called automatically when Enemy1's MaterialTimer finishes
-void Enemy1::_on_material_timer_timeout() {
+// called automatically when Enemy2's MaterialTimer finishes
+void Enemy2::_on_material_timer_timeout() {
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(true);
 }
