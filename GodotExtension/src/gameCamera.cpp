@@ -26,6 +26,11 @@ void GameCamera::_ready() {
 }
 
 void GameCamera::_process(double delta) {
+    // Stop the function running before the game starts
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
     // Find the player
     Node2D *player = Object::cast_to<Node2D>(get_tree()->get_first_node_in_group("player"));
     Vector2 cameraPosition = get_global_position();

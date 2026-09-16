@@ -8,6 +8,7 @@
 #include "player.h"
 #include "enemy1.h"
 #include "roomManager.h"
+#include "saveManager.h"
 #include "playerStatus.h"
 #include "playerStatusBar.h"
 #include "interactable.h"
@@ -26,6 +27,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level) {
     ClassDB::register_class<Player>();
     ClassDB::register_class<Enemy1>();
     ClassDB::register_class<RoomManager>();
+    ClassDB::register_class<SaveManager>();
     ClassDB::register_class<PlayerStatus>();
     ClassDB::register_class<PlayerStatusBar>();
     ClassDB::register_class<Interactable>();
