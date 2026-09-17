@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://sf1nc7x7n2kr"]
+
+[ext_resource type="FontFile" uid="uid://debh3cr5mn5ph" path="res://assets/UI/ErrorState-MA62n.otf" id="1_27awe"]
+
+[sub_resource type="Animation" id="Animation_jy5r4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19.200012, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_14dtq"]
+resource_name = "enter"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 6.0628667),
+"update": 0,
+"values": [Vector2(82, -160), Vector2(82, -160), Vector2(82, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gchx3"]
+_data = {
+&"RESET": SubResource("Animation_jy5r4"),
+&"enter": SubResource("Animation_14dtq")
+}
+
+[sub_resource type="Theme" id="Theme_lubob"]
+default_font = ExtResource("1_27awe")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gchx3"]
+load_path = "res://.godot/imported/pause screen.png-9ebfc86290f464e865209c25ff019ab7.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3d274"]
+texture = SubResource("CompressedTexture2D_gchx3")
+
+[sub_resource type="Theme" id="Theme_gchx3"]
+default_font = ExtResource("1_27awe")
+
+[node name="PauseScreen" type="CanvasLayer" unique_id=1139182521]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=750263469]
+libraries/ = SubResource("AnimationLibrary_gchx3")
+autoplay = &"enter"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=875161525]
+anchors_preset = -1
+anchor_left = 0.060000002
+anchor_top = -0.92200005
+anchor_right = 0.060000002
+anchor_bottom = -0.92200005
+offset_left = 1.1444092e-05
+offset_top = 165.96
+offset_right = 164.8
+offset_bottom = 355.96002
+grow_horizontal = 2
+theme = SubResource("Theme_lubob")
+theme_override_styles/panel = SubResource("StyleBoxTexture_3d274")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2091092570]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 57
+theme_override_constants/margin_right = 38
+theme_override_constants/margin_bottom = 26
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer" unique_id=168902033]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "PAUSED
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=873388873]
+layout_mode = 2
+size_flags_vertical = 8
+theme = SubResource("Theme_gchx3")
+
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1737174168]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "RESUME"
+
+[node name="Main Menu" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1635550703]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "MAIN MENU"
+
+[node name="Quit Game" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1741178001]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "QUIT GAME"

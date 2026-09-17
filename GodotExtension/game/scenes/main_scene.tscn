@@ -180,254 +180,254 @@ sources/0 = SubResource("TileSetAtlasSource_pu3yx")
 
 [node name="MainScene" type="Node2D" unique_id=264512790]
 
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1714296301]
+[node name="Back" type="Parallax2D" parent="." unique_id=1714296301]
 scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(-0.099990845, 5.5000076)
 
-[node name="Background" type="Sprite2D" parent="Parallax2D" unique_id=1557636078]
+[node name="Background" type="Sprite2D" parent="Back" unique_id=1557636078]
 self_modulate = Color(0.8, 0.8, 0.8, 0.8)
 position = Vector2(144, 86)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_pu3yx")
 
-[node name="Stage" type="Sprite2D" parent="Parallax2D" unique_id=1938325895]
+[node name="Stage" type="Sprite2D" parent="Back" unique_id=1938325895]
 position = Vector2(144, 87)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_gubc5")
 
-[node name="SmallLights" type="Node2D" parent="Parallax2D" unique_id=289234396]
+[node name="SmallLights" type="Node2D" parent="Back" unique_id=289234396]
 
-[node name="SmallLight" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1981705558]
+[node name="SmallLight" type="Sprite2D" parent="Back/SmallLights" unique_id=1981705558]
 position = Vector2(42.09999, 35.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight2" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1083497308]
+[node name="SmallLight2" type="Sprite2D" parent="Back/SmallLights" unique_id=1083497308]
 position = Vector2(-3.9000053, 80.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight3" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=557023046]
+[node name="SmallLight3" type="Sprite2D" parent="Back/SmallLights" unique_id=557023046]
 position = Vector2(-5.900009, 8.499992)
 scale = Vector2(0.04214285, 0.042142846)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight4" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1156135756]
+[node name="SmallLight4" type="Sprite2D" parent="Back/SmallLights" unique_id=1156135756]
 position = Vector2(-17.900005, -3.5000038)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight5" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1082968092]
+[node name="SmallLight5" type="Sprite2D" parent="Back/SmallLights" unique_id=1082968092]
 position = Vector2(31.09999, -12.500004)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight6" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=485081875]
+[node name="SmallLight6" type="Sprite2D" parent="Back/SmallLights" unique_id=485081875]
 position = Vector2(35.09999, 0.4999962)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight7" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1723707922]
+[node name="SmallLight7" type="Sprite2D" parent="Back/SmallLights" unique_id=1723707922]
 position = Vector2(73.09999, -8.500004)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight8" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1983896584]
+[node name="SmallLight8" type="Sprite2D" parent="Back/SmallLights" unique_id=1983896584]
 position = Vector2(17.099993, 27.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight9" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=619665557]
+[node name="SmallLight9" type="Sprite2D" parent="Back/SmallLights" unique_id=619665557]
 position = Vector2(11.099993, 23.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight10" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=2093632112]
+[node name="SmallLight10" type="Sprite2D" parent="Back/SmallLights" unique_id=2093632112]
 position = Vector2(66.09999, 39.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight11" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=289361643]
+[node name="SmallLight11" type="Sprite2D" parent="Back/SmallLights" unique_id=289361643]
 position = Vector2(62.09999, 100.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight12" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1460631455]
+[node name="SmallLight12" type="Sprite2D" parent="Back/SmallLights" unique_id=1460631455]
 position = Vector2(23.099993, 96.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight13" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=515275796]
+[node name="SmallLight13" type="Sprite2D" parent="Back/SmallLights" unique_id=515275796]
 position = Vector2(-9.900005, 94.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight14" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=478238276]
+[node name="SmallLight14" type="Sprite2D" parent="Back/SmallLights" unique_id=478238276]
 position = Vector2(-33.9, 73.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight15" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=490555247]
+[node name="SmallLight15" type="Sprite2D" parent="Back/SmallLights" unique_id=490555247]
 position = Vector2(10.099993, 89.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight16" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=2040084293]
+[node name="SmallLight16" type="Sprite2D" parent="Back/SmallLights" unique_id=2040084293]
 position = Vector2(189.09998, 132.5)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight17" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=888916445]
+[node name="SmallLight17" type="Sprite2D" parent="Back/SmallLights" unique_id=888916445]
 position = Vector2(168.09998, 111.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight18" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1988546393]
+[node name="SmallLight18" type="Sprite2D" parent="Back/SmallLights" unique_id=1988546393]
 position = Vector2(180.09998, 102.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight19" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=178138451]
+[node name="SmallLight19" type="Sprite2D" parent="Back/SmallLights" unique_id=178138451]
 position = Vector2(99.09999, 132.5)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight20" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=366198667]
+[node name="SmallLight20" type="Sprite2D" parent="Back/SmallLights" unique_id=366198667]
 position = Vector2(121.09998, 111.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight21" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=2039728341]
+[node name="SmallLight21" type="Sprite2D" parent="Back/SmallLights" unique_id=2039728341]
 position = Vector2(108.09998, 101.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight22" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=921170686]
+[node name="SmallLight22" type="Sprite2D" parent="Back/SmallLights" unique_id=921170686]
 position = Vector2(171.09998, 64.49999)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight23" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=8886276]
+[node name="SmallLight23" type="Sprite2D" parent="Back/SmallLights" unique_id=8886276]
 position = Vector2(184.09998, 51.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight24" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=426414008]
+[node name="SmallLight24" type="Sprite2D" parent="Back/SmallLights" unique_id=426414008]
 position = Vector2(174.09998, 40.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight25" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1172442419]
+[node name="SmallLight25" type="Sprite2D" parent="Back/SmallLights" unique_id=1172442419]
 position = Vector2(116.09998, 64.49999)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight26" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=289580039]
+[node name="SmallLight26" type="Sprite2D" parent="Back/SmallLights" unique_id=289580039]
 position = Vector2(103.09999, 50.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight27" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1613133255]
+[node name="SmallLight27" type="Sprite2D" parent="Back/SmallLights" unique_id=1613133255]
 position = Vector2(146.09998, -7.500004)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight28" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1402438759]
+[node name="SmallLight28" type="Sprite2D" parent="Back/SmallLights" unique_id=1402438759]
 position = Vector2(138.09998, 2.4999962)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight29" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1310925598]
+[node name="SmallLight29" type="Sprite2D" parent="Back/SmallLights" unique_id=1310925598]
 position = Vector2(50.09999, 110.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight30" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=268771180]
+[node name="SmallLight30" type="Sprite2D" parent="Back/SmallLights" unique_id=268771180]
 position = Vector2(226.09998, 100.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight31" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=996520065]
+[node name="SmallLight31" type="Sprite2D" parent="Back/SmallLights" unique_id=996520065]
 position = Vector2(271.09998, 27.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight32" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=689032452]
+[node name="SmallLight32" type="Sprite2D" parent="Back/SmallLights" unique_id=689032452]
 position = Vector2(295.09998, 9.499994)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight33" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1146411914]
+[node name="SmallLight33" type="Sprite2D" parent="Back/SmallLights" unique_id=1146411914]
 position = Vector2(306.09998, -1.5000038)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight34" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=29873578]
+[node name="SmallLight34" type="Sprite2D" parent="Back/SmallLights" unique_id=29873578]
 position = Vector2(279.09998, 24.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight35" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=286374684]
+[node name="SmallLight35" type="Sprite2D" parent="Back/SmallLights" unique_id=286374684]
 position = Vector2(247.09998, 34.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight36" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1716324562]
+[node name="SmallLight36" type="Sprite2D" parent="Back/SmallLights" unique_id=1716324562]
 position = Vector2(224.09998, 39.499992)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight37" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1358204876]
+[node name="SmallLight37" type="Sprite2D" parent="Back/SmallLights" unique_id=1358204876]
 position = Vector2(255.09998, -0.5000038)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight38" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1403009620]
+[node name="SmallLight38" type="Sprite2D" parent="Back/SmallLights" unique_id=1403009620]
 position = Vector2(257.09998, -12.500004)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight39" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1431982121]
+[node name="SmallLight39" type="Sprite2D" parent="Back/SmallLights" unique_id=1431982121]
 position = Vector2(216.09998, -8.500004)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight40" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1424227609]
+[node name="SmallLight40" type="Sprite2D" parent="Back/SmallLights" unique_id=1424227609]
 position = Vector2(300.09998, 93.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight41" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=257226800]
+[node name="SmallLight41" type="Sprite2D" parent="Back/SmallLights" unique_id=257226800]
 position = Vector2(306.09998, 124.49999)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight42" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1164522348]
+[node name="SmallLight42" type="Sprite2D" parent="Back/SmallLights" unique_id=1164522348]
 position = Vector2(240.09998, 111.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight43" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=588485740]
+[node name="SmallLight43" type="Sprite2D" parent="Back/SmallLights" unique_id=588485740]
 position = Vector2(279.09998, 90.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight44" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=2104708218]
+[node name="SmallLight44" type="Sprite2D" parent="Back/SmallLights" unique_id=2104708218]
 position = Vector2(291.09998, 81.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight45" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=1294907774]
+[node name="SmallLight45" type="Sprite2D" parent="Back/SmallLights" unique_id=1294907774]
 position = Vector2(-16.900005, 124.49999)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="SmallLight46" type="Sprite2D" parent="Parallax2D/SmallLights" unique_id=69299671]
+[node name="SmallLight46" type="Sprite2D" parent="Back/SmallLights" unique_id=69299671]
 position = Vector2(266.09998, 95.499985)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_18nlu")
 
-[node name="Light" type="Sprite2D" parent="Parallax2D" unique_id=294128405]
+[node name="Light" type="Sprite2D" parent="Back" unique_id=294128405]
 self_modulate = Color(1, 1, 1, 0.56078434)
 position = Vector2(146.09998, 39.49999)
 scale = Vector2(0.20000002, 0.20000002)
@@ -447,11 +447,11 @@ position = Vector2(-119, 54)
 [node name="Player" parent="." unique_id=2111237677 instance=ExtResource("2_pw63i")]
 position = Vector2(-105, 80)
 
-[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=2040349520]
+[node name="Front" type="Parallax2D" parent="." unique_id=2040349520]
 scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(21, 4)
 
-[node name="Railing" type="Sprite2D" parent="Parallax2D2" unique_id=1871937771]
+[node name="Railing" type="Sprite2D" parent="Front" unique_id=1871937771]
 position = Vector2(123, 89)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_rt2n2")
