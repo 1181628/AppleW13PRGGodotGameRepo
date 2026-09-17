@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AppleWGodotGame"
-run/main_scene="uid://7png4di5432h"
+run/main_scene="uid://dbjveg20n0ohw"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
