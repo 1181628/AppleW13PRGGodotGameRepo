@@ -15,9 +15,9 @@ class Enemy1 : public CharacterBody2D {
 
 private:
     double gravity = 1000;
-    double walkSpeed = 40;
+    double walkSpeed = 20;
     double attackRange = 35;
-    double Health = 1000;
+    double Health = 4000;
 
     // all possible enemy1 states
 	enum class State {
@@ -33,13 +33,14 @@ private:
     bool is_state_new = true;
 	void change_state(int new_state);
 
-    void process_normal(double delta);
-    void process_walk(double delta);
-    void process_attack(double delta);
-    void process_die(double delta);
+    void process_normal();
+    void process_walk();
+    void process_attack();
+    void process_die();
 
     void _turn_direction();
 
+    // Stores the Player's last known global position
     godot::Vector2 playerPosition;
     void match_player_position();   
 
@@ -52,7 +53,7 @@ public:
 
     // Keep only the Godot callbacks that the class needs.
     void _ready() override;
-    void _process(double delta) override;
+    void _physics_process(double) override;
     void _on_hurtbox_area_entered(godot::Area2D *area);
     void _on_material_timer_timeout();
 };

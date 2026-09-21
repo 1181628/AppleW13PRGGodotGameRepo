@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c5aek0thavqqp" path="res://assets/enemy/Enemy1 GetHit.png" id="4_iolyx"]
 [ext_resource type="Texture2D" uid="uid://b5ff7hgd8se52" path="res://assets/enemy/Enemy1 Walk.png" id="4_lowyn"]
 [ext_resource type="PackedScene" uid="uid://ktpxc83s88c1" path="res://scenes/GameObjects/HitParticle.tscn" id="7_ye30t"]
+[ext_resource type="AudioStream" uid="uid://domyheydl36hl" path="res://assets/sound/enemy1.MP3" id="8_6f6wx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qwcan"]
 shader = ExtResource("1_nb0t0")
@@ -97,6 +98,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_lowyn"]
 resource_name = "attack"
@@ -185,6 +198,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_ye30t"]
@@ -556,3 +581,7 @@ disabled = true
 wait_time = 0.1
 
 [node name="HitParticle" parent="." unique_id=1182320173 instance=ExtResource("7_ye30t")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=719878358]
+stream = ExtResource("8_6f6wx")
+volume_db = -20.0

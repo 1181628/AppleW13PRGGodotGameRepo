@@ -2,9 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://4lnftnxsvtiu" path="res://assets/gameObjects/Teleportation door.png" id="1_lqyh8"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j20lk"]
-radius = 13.0
-height = 34.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mngbo"]
+size = Vector2(349, 44)
 
 [node name="Teleporter" type="Teleporter" unique_id=1199749779]
 collision_layer = 0
@@ -17,5 +16,5 @@ region_enabled = true
 region_rect = Rect2(47, 28, 30, 36)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1895166003]
-position = Vector2(-1, 0)
-shape = SubResource("CapsuleShape2D_j20lk")
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_mngbo")

@@ -1,7 +1,7 @@
 #include "enemy2.h"
 #include "playerStatus.h"
+#include "roomManager.h"
 
-// Add other includes when needed.
 #include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/node2d.hpp>
@@ -23,6 +23,11 @@ void Enemy2::_bind_methods() {
 }
 
 void Enemy2::_ready() {
+    // Stop the function running before the game starts
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+    
     // Connects Enemy2's hurtbox signal
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
     hurtbox_area->connect("area_entered", callable_mp(this, &Enemy2::_on_hurtbox_area_entered));
@@ -31,8 +36,8 @@ void Enemy2::_ready() {
     material_timer->connect("timeout", callable_mp(this, &Enemy2::_on_material_timer_timeout));
 }
 
-// ================================== Enemy2 STATE MACHINE ===================================
-void Enemy2::_process(double delta) {
+// ================================== ENEMY2 STATE MACHINE ===================================
+void Enemy2::_physics_process(double) {
     // Stop the function running before the game starts
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
@@ -44,37 +49,33 @@ void Enemy2::_process(double delta) {
     //  Runs the behaviour belonging to the current state
     switch (current_state) {
         case State::NORMAL:
-            process_normal(delta);
+            process_normal();
             break;
 
         case State::WALK:
-            process_walk(delta);
+            process_walk();
             break;
 
         case State::ATTACK:
-            process_attack(delta);
+            process_attack();
             break;
 
         case State::DIE:
-            process_die(delta);
+            process_die();
             break;
     }
     // After this physics frame, the current state is no longer new
     is_state_new = false;
 }
 
-// Change the Enemy2's current state to the given new state
+// Change the enemy2's current state to the given new state
 void Enemy2::change_state(int new_state) {
     current_state = static_cast<State>(new_state);
     is_state_new = true;
 }
 
 // ================================== NORMAL STATE ===================================
-void Enemy2::process_normal(double delta) {
-    // Remove this line when delta is used
-    // There will be a gravity effect added to Enemy2 but not now
-    (void)delta;
-
+void Enemy2::process_normal() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
 
     // Stops all movement while Enemy2 is idle
@@ -94,7 +95,7 @@ void Enemy2::process_normal(double delta) {
     if (!animationPlayer->is_playing()) {
         // Calculates the horizontal distance between Enemy2 and Player
         double distance = std::abs(playerPosition.x - get_global_position().x);
-        // Attack when the Player is less than 80 pixels away else move closer
+        // Attack when the Player is less than attackRange pixels away else move closer
         if (distance < attackRange) {
             call_deferred("change_state", static_cast<int>(State::ATTACK));
         } else {
@@ -104,8 +105,7 @@ void Enemy2::process_normal(double delta) {
 }
 
 // ================================== WALK STATE ===================================
-void Enemy2::process_walk(double delta) {
-    (void)delta;
+void Enemy2::process_walk() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");   
     Vector2 velocity = get_velocity();
     _turn_direction();
@@ -134,8 +134,7 @@ void Enemy2::process_walk(double delta) {
 }
 
 // ================================== ATTACK STATE ===================================
-void Enemy2::process_attack(double delta) {
-    (void)delta;
+void Enemy2::process_attack() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
     Vector2 velocity = get_velocity();  
 
@@ -156,9 +155,8 @@ void Enemy2::process_attack(double delta) {
 }
 
 // ================================== DIE STATE ===================================
-void Enemy2::process_die(double delta) {
-    (void)delta;
-    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
+void Enemy2::process_die() {
+    AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
 
     // Plays die once when entering DIE
     if (is_state_new) {
@@ -167,6 +165,11 @@ void Enemy2::process_die(double delta) {
         get_node<CollisionPolygon2D>("HurtboxArea/Hurtbox")->set_disabled(true);
         get_node<CollisionPolygon2D>("BodyHitboxArea/BodyHitbox")->set_disabled(true);
         get_node<CollisionPolygon2D>("AttackHitboxArea/AttackHitbox")->set_disabled(true);
+
+        Node *room_manager_node = get_tree()->get_first_node_in_group("room_manager");
+        RoomManager *room_manager = Object::cast_to<RoomManager>(room_manager_node);
+        // Tells RoomManager that one enemy in this room has died
+        room_manager->enemy_died();
 
         animationPlayer->play("death");  
     }
@@ -228,13 +231,14 @@ void Enemy2::_on_hurtbox_area_entered(Area2D *area) {
 
     PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
 
+    // Generate some particles
     CPUParticles2D *hit_particle = get_node<CPUParticles2D>("HitParticle");
     hit_particle->set_position(Vector2(0, -15));
     hit_particle->set_emitting(true);
     hit_particle->restart();
 
-    // Only deal damage if the entering area is the Player's Attack1 hitbox
-    if (areaName == StringName("Attack1")) {
+    // Only deal damage if the entering area is the Player's Attack hitbox
+    if (areaName == StringName("Attack")) {
         Health -= player_status->attackDamage;
     }
 

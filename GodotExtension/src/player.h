@@ -22,7 +22,9 @@ private:
 	double maxHorizontalSpeed;	
 	double jumpHeight;
 
+	// Prevents further damage during invincibility
 	bool isInvincible = false;
+	// Stores the direction the Player is knocked back
 	String hurtDirection;
 
 	// all possible player states
@@ -68,7 +70,7 @@ public:
 	void _ready() override;
 	void _physics_process(double delta) override;
 	void _on_hurtbox_area_entered(godot::Area2D *area);
-	void _on_attack1_area_entered(godot::Area2D *area);
+	void _on_attack_area_entered(godot::Area2D *area);
 };
 
 }

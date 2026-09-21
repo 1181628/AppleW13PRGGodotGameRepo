@@ -28,3 +28,9 @@ public:
 }
 
 #endif
+
+// I reused Interactable so each object would not need its own detection code
+// The Player could use the same interaction call for different object types
+// However, I wrote this early on, and the final game differed from my original plan
+// A simpler approach would have been enough for teleporting, so this structure became less useful than expected
+// I still used it for the final teleporter because I don't want to wast it

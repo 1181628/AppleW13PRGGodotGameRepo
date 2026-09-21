@@ -5,6 +5,8 @@
 
 namespace godot {
 
+class PlayerStatus;
+
 class SaveManager : public Node {
     GDCLASS(SaveManager, Node);
 
@@ -15,8 +17,13 @@ public:
     SaveManager();
     ~SaveManager();
 
-    // Saves PlayerStatus and the room the Player has just entered
+    void _process(double delta) override;
+    
     void save_game(int current_room_id);
+    
+    // Allows the title screen to load data without a SaveManager instance
+    static bool load_game(PlayerStatus *player_status);
+    void save_past_record();
 };
 
 }

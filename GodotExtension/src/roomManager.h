@@ -7,25 +7,24 @@
 
 namespace godot {
 
-// The types of enemy that can be placed in a room.
+// The types of enemy that can be placed in a room
 enum class EnemyType {
-    ENEMY1
-    //ENEMY2,
-    //ENEMY3,
-    //BOSS
+    ENEMY1,
+    ENEMY2,
+    ENEMY3
 };
 
-// Structure of info about one enemy's type and position.
+// Structure of info about one enemy's type and position
 struct EnemySpawn {
     EnemyType type;
     Vector2 position;
 };
 
-// Structure of info that every room will have
+// Groups each room's ID and enemy list so room data is separate from spawning logic
 struct RoomInfo {
     int room_id;
-    
-    // A list of every enemy that belongs in this room.
+   
+    // A list of every enemy that belongs in this room
     std::vector<EnemySpawn> enemies;
 };
 
@@ -54,11 +53,11 @@ public:
     // Creates the empty room list
     void create_room_data();
 
-    void load_room(int room_id);
+    void load_room(int room_id, bool save_progress = true);
     void go_to_next_room();
     void save_current_progress();
 
-    // Called by an Enemy when it dies.
+    // Called by an Enemy when it dies
     void enemy_died();
 };
 

@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://d3rb54rnvv1os" path="res://assets/player/player rotate.png" id="3_s4lrb"]
 [ext_resource type="Texture2D" uid="uid://dpgbvl2gup1hy" path="res://assets/tiles/light1.png" id="4_dc4i4"]
 [ext_resource type="Texture2D" uid="uid://pwhpx83ukmjj" path="res://assets/UI/pop.png" id="4_e54dn"]
+[ext_resource type="PackedScene" uid="uid://5cy5t7j7x2kr" path="res://scenes/past_records.tscn" id="7_3yumr"]
+[ext_resource type="Texture2D" uid="uid://dvjupr7waivk8" path="res://assets/UI/book.png" id="7_cs5ya"]
+[ext_resource type="AudioStream" uid="uid://ic6asvu5rdtl" path="res://assets/sound/title music.mp3" id="9_mykxm"]
 
 [sub_resource type="Theme" id="Theme_1bodj"]
 default_font = ExtResource("1_fgkus")
@@ -327,7 +330,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -104.0
 offset_top = -108.0
-offset_right = -5.999939
+offset_right = -6.0
 offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -343,3 +346,24 @@ text = "Load Game"
 [node name="ExitGame" type="Button" parent="V" unique_id=759913996]
 layout_mode = 2
 text = "Exit Game"
+
+[node name="PastRecords" parent="." unique_id=1389536650 instance=ExtResource("7_3yumr")]
+visible = false
+layout_mode = 1
+
+[node name="Button" type="Button" parent="." unique_id=1123503634]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 40.0
+offset_right = 308.0
+offset_bottom = 68.0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/icon_max_width = 20
+theme_override_font_sizes/font_size = 10
+icon = ExtResource("7_cs5ya")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1513352560]
+stream = ExtResource("9_mykxm")
+volume_db = -10.0
+autoplay = true

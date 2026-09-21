@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://dpgbvl2gup1hy" path="res://assets/tiles/light1.png" id="3_18nlu"]
 [ext_resource type="Texture2D" uid="uid://bvrugx55ijkrn" path="res://assets/tiles/light.png" id="3_c16ls"]
 [ext_resource type="Texture2D" uid="uid://bg1gfoqmrb0sh" path="res://assets/tiles/railing1.png" id="6_rt2n2"]
+[ext_resource type="AudioStream" uid="uid://skrc6poanx6m" path="res://assets/sound/battle music.mp3" id="9_c1pb6"]
+[ext_resource type="PackedScene" uid="uid://b44wmll3t7cw0" path="res://scenes/reward_screen.tscn" id="10_6wevv"]
+[ext_resource type="PackedScene" uid="uid://sf1nc7x7n2kr" path="res://scenes/pause_screen.tscn" id="11_e1cbu"]
+[ext_resource type="FontFile" uid="uid://debh3cr5mn5ph" path="res://assets/UI/ErrorState-MA62n.otf" id="12_mngbo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pu3yx"]
 texture = ExtResource("2_7ykc4")
@@ -177,6 +181,245 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_pu3yx")
+
+[sub_resource type="Animation" id="Animation_mngbo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Label1:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["A / D move, W / Space jump, J / K attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Label1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(24, 48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Label2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(88, 56)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Label3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(120, 48)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/Label4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(112, 48)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/Label1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/Label2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CanvasLayer/Label3:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/Label4:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4w45t"]
+resource_name = "tutorial"
+length = 16.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Label1:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["A / D move, W  jump, J  attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Label1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(72, 48), Vector2(72, 56), Vector2(72, 48), Vector2(72, 56), Vector2(72, 48), Vector2(72, 56), Vector2(72, 48), Vector2(72, 56), Vector2(72, 48)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Label2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(88, 48), Vector2(88, 56), Vector2(88, 48), Vector2(88, 56), Vector2(88, 48), Vector2(88, 56), Vector2(88, 48), Vector2(88, 56), Vector2(88, 48)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Label3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(120, 48), Vector2(120, 56), Vector2(120, 48), Vector2(120, 56), Vector2(120, 48), Vector2(120, 56), Vector2(120, 48), Vector2(120, 56), Vector2(120, 48)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/Label4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(112, 48), Vector2(112, 56), Vector2(112, 48), Vector2(112, 56), Vector2(112, 48), Vector2(112, 56), Vector2(112, 48), Vector2(112, 56), Vector2(112, 48)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/Label1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/Label2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CanvasLayer/Label3:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 8, 12),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/Label4:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 12, 16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r6p65"]
+_data = {
+&"RESET": SubResource("Animation_mngbo"),
+&"tutorial": SubResource("Animation_4w45t")
+}
+
+[sub_resource type="Theme" id="Theme_e1cbu"]
+default_font = ExtResource("12_mngbo")
+
+[sub_resource type="FontVariation" id="FontVariation_4w45t"]
+base_font = ExtResource("12_mngbo")
+opentype_features = {
+1818847073: 0
+}
 
 [node name="MainScene" type="Node2D" unique_id=264512790]
 
@@ -442,7 +685,8 @@ tile_map_data = PackedByteArray("AAD//wUAAAABAAIAAAD+/wUAAAABAAIAAAD9/wUAAAABAAI
 tile_set = SubResource("TileSet_xmr8x")
 
 [node name="Teleporter" parent="TileMapLayer" unique_id=1199749779 instance=ExtResource("2_pu3yx")]
-position = Vector2(-119, 54)
+visible = false
+position = Vector2(-24, 56)
 
 [node name="Player" parent="." unique_id=2111237677 instance=ExtResource("2_pw63i")]
 position = Vector2(-105, 80)
@@ -461,3 +705,71 @@ texture = ExtResource("6_rt2n2")
 [node name="RoomManager" type="RoomManager" parent="." unique_id=856044952]
 
 [node name="SaveManager" type="SaveManager" parent="." unique_id=888662792]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=253955733]
+process_mode = 3
+stream = ExtResource("9_c1pb6")
+volume_db = -10.0
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1384571348]
+layer = 10
+
+[node name="RewardScreen" parent="CanvasLayer" unique_id=180316949 instance=ExtResource("10_6wevv")]
+visible = false
+offset_top = -8.0
+offset_bottom = -8.0
+
+[node name="PauseScreen" parent="CanvasLayer" unique_id=1333195697 instance=ExtResource("11_e1cbu")]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=834484102]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_r6p65")
+
+[node name="Label1" type="Label" parent="CanvasLayer" unique_id=1692076045]
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 296.0
+offset_bottom = 71.001236
+size_flags_horizontal = 4
+theme = SubResource("Theme_e1cbu")
+theme_override_fonts/font = SubResource("FontVariation_4w45t")
+theme_override_font_sizes/font_size = 12
+text = "A / D move, W / Space jump, J / K attack"
+
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=1312480147]
+visible = false
+offset_left = 88.0
+offset_top = 56.0
+offset_right = 224.0
+offset_bottom = 79.00133
+size_flags_horizontal = 4
+theme = SubResource("Theme_e1cbu")
+theme_override_fonts/font = SubResource("FontVariation_4w45t")
+theme_override_font_sizes/font_size = 12
+text = "↖This is your status"
+
+[node name="Label3" type="Label" parent="CanvasLayer" unique_id=1488450946]
+visible = false
+offset_left = 120.0
+offset_top = 48.0
+offset_right = 216.0
+offset_bottom = 71.000946
+size_flags_horizontal = 4
+theme = SubResource("Theme_e1cbu")
+theme_override_fonts/font = SubResource("FontVariation_4w45t")
+theme_override_font_sizes/font_size = 12
+text = "Fight till death"
+
+[node name="Label4" type="Label" parent="CanvasLayer" unique_id=1941859780]
+visible = false
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 216.0
+offset_bottom = 71.00139
+size_flags_horizontal = 4
+theme = SubResource("Theme_e1cbu")
+theme_override_fonts/font = SubResource("FontVariation_4w45t")
+theme_override_font_sizes/font_size = 12
+text = "Press F to start"

@@ -3,6 +3,7 @@
 #include "playerStatusBar.h"
 #include "interactable.h"
 #include "gameCamera.h"
+#include "saveManager.h"
 
 #include <godot_cpp/variant/vector2.hpp>
 #include <godot_cpp/classes/input.hpp>
@@ -13,6 +14,10 @@
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/timer.hpp>
 #include <godot_cpp/classes/collision_polygon2d.hpp>
+#include <godot_cpp/classes/audio_stream_player2d.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/scene_tree_timer.hpp>
 
 using namespace godot;
 
@@ -27,21 +32,28 @@ void Player::_bind_methods() {
 }
 
 void Player::_ready() {
+    // Stop the function running before the game starts
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
     // Adds the Player to the "player" group so enemies can find it
     add_to_group("player");
 
+    // Connects the timer that ends the Player's invincibility
     Timer *invincibility_timer = get_node<Timer>("InvincibilityTimer");
     invincibility_timer->connect("timeout", callable_mp(this, &Player::_on_invincibility_timer_timeout));
 
+    // Connects the timer that controls the flashing effect
     Timer *flash_timer = get_node<Timer>("FlashTimer");
     flash_timer->connect("timeout", callable_mp(this, &Player::_on_flash_timer_timeout));
     
     // Connects Player's hurtbox signal
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
     hurtbox_area->connect("area_entered", callable_mp(this, &Player::_on_hurtbox_area_entered));
-    // Connects Player's attack1 signal
-    Area2D *attack1_area = get_node<Area2D>("Attack1");
-    attack1_area->connect("area_entered", callable_mp(this, &Player::_on_attack1_area_entered));
+    // Connects Player's attack signal
+    Area2D *attack_area = get_node<Area2D>("Attack");
+    attack_area->connect("area_entered", callable_mp(this, &Player::_on_attack_area_entered));
 }  
 
 
@@ -52,6 +64,7 @@ void Player::_physics_process(double delta) {
         return;
     }
 
+    // Updates movement values from the Player's current stats
     PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
     maxHorizontalSpeed = player_status->maxHorizontalSpeed;
     jumpHeight = player_status->jumpHeight;
@@ -62,20 +75,8 @@ void Player::_physics_process(double delta) {
             process_normal(delta);
             break;
 
-        case State::DASH:
-            process_dash(delta);
-            break;
-
         case State::ATTACK:
             process_attack(delta);
-            break;
-
-        case State::ATTACK_UP:
-            process_attack_up(delta);
-            break;
-
-        case State::ATTACK_DOWN:
-            process_attack_down(delta);
             break;
 
         case State::HURT:
@@ -150,11 +151,6 @@ void Player::process_normal(double delta) {
     _turn_direction();
 }
 
-// Placeholder for the future DASH behaviour
-void Player::process_dash(double delta) {
-    current_state = State::NORMAL;
-}
-
 // ================================== ATTACK STATE ===================================
 void Player::process_attack(double delta) {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");
@@ -168,18 +164,8 @@ void Player::process_attack(double delta) {
     if (!animationPlayer->is_playing()) {
         call_deferred("change_state", static_cast<int>(State::NORMAL));
     }
-    // Gravity but Player can jump/move during the same time
+    // Allows jumping and movement while the attack animation plays
     apply_gravity_movement(delta);
-}
-
-// Placeholder for a future upward attack behaviour
-void Player::process_attack_up(double delta) {
-    current_state = State::NORMAL;
-}
-
-// Placeholder for a future downward attack behaviour
-void Player::process_attack_down(double delta) {
-    current_state = State::NORMAL;
 }
 
 // ================================== HURT STATE ===================================
@@ -191,33 +177,33 @@ void Player::process_hurt(double delta) {
     if (is_state_new) {
         // Finds the child nodes and stores them in pointers
         Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
-        Area2D *attack1_area = get_node<Area2D>("Attack1");
+        Area2D *attack_area = get_node<Area2D>("Attack");
         Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
 
-        // Flip the sprite/attack1/hurtbox area to face the direction opposite to right
+        // Flip the sprite/attack/hurtbox area to face the direction opposite to right
         if (hurtDirection == "right") {
             // Knockback horizontal velocity
             velocity.x = 35;
 
             sprite->set_flip_h(true);
 
-            Vector2 attack1_scale =attack1_area->get_scale();
-            attack1_scale.x = -1;
-            attack1_area->set_scale(attack1_scale);
+            Vector2 attack_scale =attack_area->get_scale();
+            attack_scale.x = -1;
+            attack_area->set_scale(attack_scale);
 
             Vector2 hurtbox_scale = hurtbox_area->get_scale();
             hurtbox_scale.x = -1;
             hurtbox_area->set_scale(hurtbox_scale);
         }
-        // Flip the sprite/attack1/hurtbox area to face the direction opposite to left
+        // Flip the sprite/attack/hurtbox area to face the direction opposite to left
         if (hurtDirection == "left") {
             velocity.x = -35;
 
             sprite->set_flip_h(false);
 
-            Vector2 attack1_scale = attack1_area->get_scale();
-            attack1_scale.x = 1;
-            attack1_area->set_scale(attack1_scale);
+            Vector2 attack_scale = attack_area->get_scale();
+            attack_scale.x = 1;
+            attack_area->set_scale(attack_scale);
 
             Vector2 hurtbox_scale = hurtbox_area->get_scale();
             hurtbox_scale.x = 1;
@@ -225,6 +211,10 @@ void Player::process_hurt(double delta) {
         }
         // Knockback vertical velocity
         velocity.y = -100;
+
+        // Play a sound effect once when taking damage
+        auto *sound = get_node<AudioStreamPlayer2D>("AudioStreamPlayer2D_Hurt");
+        sound->play();
         animationPlayer->play("getHit");
     }
 
@@ -237,7 +227,7 @@ void Player::process_hurt(double delta) {
     // Move the character under the knockback velocity
     move_and_slide();
 
-    // Return to NORMAL when the attack animation finishes
+    // Returns to NORMAL when the hurt animation finishes
     if (!animationPlayer->is_playing()) {
         call_deferred("change_state", static_cast<int>(State::NORMAL));
     }
@@ -260,11 +250,22 @@ void Player::process_die(double delta) {
 
     // Play the death animation once when entering DIE
     if (is_state_new) {
+        // Saves the run's record when the Player enters DIE
+        SaveManager *save_manager = get_node<SaveManager>("/root/MainScene/SaveManager");
+        save_manager->save_past_record();
+
         // Disable the hurtbox shape area after death
         get_node<CollisionPolygon2D>("HurtboxArea/Hurtbox")->set_disabled(true);
         // Stop the invincibility timer
         get_node<Timer>("InvincibilityTimer")->stop();
         animationPlayer->play("death");
+
+        Node *camera = get_tree()->get_first_node_in_group("game_camera");
+        camera->call_deferred("room_cleared");
+
+        // Open the title screen after three real seconds
+        Ref<SceneTreeTimer> timer =get_tree()->create_timer(3.0, true, false, true);
+        timer->connect("timeout", Callable(get_tree(), "change_scene_to_file").bind("res://scenes/title_screen.tscn"));
     }
 }
 
@@ -374,9 +375,9 @@ void Player::_on_invincibility_timer_timeout() {
     // Enables the Player's hurtbox again
     hurtbox->set_deferred("disabled", false);
 
-    // Only enables the hurtbox while the Player is alive
+    // Only restores the hurtbox while alive to prevent collisions after death
     if (current_state != State::DIE) {
-        get_node<CollisionPolygon2D>("HurtboxArea/Hurtbox")->set_disabled(false);
+        hurtbox->set_deferred("disabled", false);
     }
 
 }
@@ -386,16 +387,16 @@ void Player::_turn_direction() {
     Input *input = Input::get_singleton();
     double moveVector_x = input->get_axis("ui_left", "ui_right");
     Sprite2D * sprite = get_node<Sprite2D>("Sprite2D");
-    Area2D *attack1_area = get_node<Area2D>("Attack1");
+    Area2D *attack_area = get_node<Area2D>("Attack");
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
 
-    // When the Player moves, flip the sprite/attack1/hurtbox collision area to face the direction it was moving toward
+    // When the Player moves, flip the sprite/attack/hurtbox collision area to face the direction it was moving toward
     if (moveVector_x < 0) {
         sprite->set_flip_h(true);
 
-        Vector2 attack1_scale =attack1_area->get_scale();
-        attack1_scale.x = -1;
-        attack1_area->set_scale(attack1_scale);
+        Vector2 attack_scale =attack_area->get_scale();
+        attack_scale.x = -1;
+        attack_area->set_scale(attack_scale);
 
         Vector2 hurtbox_scale = hurtbox_area->get_scale();
         hurtbox_scale.x = -1;
@@ -405,9 +406,9 @@ void Player::_turn_direction() {
     if (moveVector_x > 0) {
         sprite->set_flip_h(false);
 
-        Vector2 attack1_scale = attack1_area->get_scale();
-        attack1_scale.x = 1;
-        attack1_area->set_scale(attack1_scale);
+        Vector2 attack_scale = attack_area->get_scale();
+        attack_scale.x = 1;
+        attack_area->set_scale(attack_scale);
 
         Vector2 hurtbox_scale = hurtbox_area->get_scale();
         hurtbox_scale.x = 1;
@@ -417,7 +418,7 @@ void Player::_turn_direction() {
 
 // Runs when another Area2D enters the Player's hurtbox
 void Player::_on_hurtbox_area_entered(Area2D *area) {
-    // Ignores damage during the invincibility frames
+    // Ignores repeated hits during invincibility so the Player has time to recover
     if (isInvincible) {
         return;
     }
@@ -425,15 +426,16 @@ void Player::_on_hurtbox_area_entered(Area2D *area) {
     PlayerStatusBar *player_status_bar = get_node<PlayerStatusBar>("/root/StatusBar");
     PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
     GameCamera *gameCamera = get_node<GameCamera>("/root/MainScene/GameCamera");
-    get_node<GameCamera>("/root/MainScene/GameCamera")->player_hurt();
 
     // Reduces the Player's health
     player_status->take_damage(1);
     // Updates the health bar animation
     player_status_bar->refresh_player_status();
+    // Acting effects
     gameCamera->camera_shake_big();
+    gameCamera->player_hurt();   
 
-    // Checks whether the attack came from which side
+    // Sets the knockback direction away from the incoming area
     if (area->get_global_position().x > get_global_position().x) {
         hurtDirection = "left";
     }
@@ -443,7 +445,6 @@ void Player::_on_hurtbox_area_entered(Area2D *area) {
 
     // Change state to DIE if Player has no more health otherwise change state to HURT
     if (player_status->health <= 0) {
-        gameCamera->camera_shake_verybig();
         call_deferred("change_state", static_cast<int>(State::DIE));
     }
     else {
@@ -454,19 +455,33 @@ void Player::_on_hurtbox_area_entered(Area2D *area) {
 }
 
 // Runs when the Player's attack touches another Area2D
-void Player::_on_attack1_area_entered(Area2D *area) {
+void Player::_on_attack_area_entered(Area2D *area) {
     Sprite2D *sprite = get_node<Sprite2D>("Sprite2D");
     Vector2 player_position = get_global_position();
 
+    // Adds a small camera shake when the attack touches another area
     GameCamera *gameCamera = get_node<GameCamera>("/root/MainScene/GameCamera");
     gameCamera->camera_shake_small();   
 
+    // Randomized the two sound effects
+    const char *sound_paths[] = {
+        "AudioStreamPlayer2D_Attack1",
+        "AudioStreamPlayer2D_Attack2"
+    };
+    int index = UtilityFunctions::randi_range(0, 1);
+    // Play a random sound effect once when attacking enemies
+    AudioStreamPlayer2D *sound = get_node<AudioStreamPlayer2D>(sound_paths[index]);
+    sound->play();
+
+    // I disabled attack recoil because changing the Player's position caused a single attack to hit more than once
+    // Due to time constraints, I set the movement to 0
+    // I kept this code to document the approach I tried and use it as a reference when studying this problem later
     if (!sprite->is_flipped_h()) {
         // Facing to the right, the player moves backward to the left
-        player_position.x -= 2;
+        player_position.x -= 0;
     } else {
         // Facing to the left, the player moves backward to the right
-        player_position.x += 2;
+        player_position.x += 0;
     }
 
     // Applies the changed position

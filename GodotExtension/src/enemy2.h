@@ -17,26 +17,26 @@ private:
     double gravity = 1000;
     double walkSpeed = 40;
     double attackRange = 35;
-    double Health = 1000;
+    double Health = 2000;
 
-    // all possible Enemy2 states
+    // all possible enemy2 states
 	enum class State {
         NORMAL,
         WALK,
         ATTACK,
         DIE
     };
-	// record the Enemy2's initial state
+	// record the enemy2's initial state
 	State current_state = State::NORMAL;
 
-	// Records whether the Enemy2 has just entered a new state
+	// Records whether the enemy2 has just entered a new state
     bool is_state_new = true;
 	void change_state(int new_state);
 
-    void process_normal(double delta);
-    void process_walk(double delta);
-    void process_attack(double delta);
-    void process_die(double delta);
+    void process_normal();
+    void process_walk();
+    void process_attack();
+    void process_die();
 
     void _turn_direction();
 
@@ -52,7 +52,7 @@ public:
 
     // Keep only the Godot callbacks that the class needs.
     void _ready() override;
-    void _process(double delta) override;
+    void _physics_process(double) override;
     void _on_hurtbox_area_entered(godot::Area2D *area);
     void _on_material_timer_timeout();
 };

@@ -10,7 +10,6 @@ class PlayerStatus : public Node {
     GDCLASS(PlayerStatus, Node);
 
 private:
-    //
 
 protected:
     static void _bind_methods();
@@ -19,13 +18,17 @@ public:
     PlayerStatus();
     ~PlayerStatus();
 
-    // These values continue existing when the Player enters another room.
+    // These values continue existing when the Player enters another room
     int health = 5;
     int maxHealth = 5;
-
     double maxHorizontalSpeed = 120.0;
     double jumpHeight = 250.0;
     int attackDamage = 100;
+    int bonusRerolls = 0;
+    int startRoomId = 0;
+    double elapsedSeconds = 0.0;
+    bool loadingSavedGame = false;
+    void reset_for_new_game();
 
     void take_damage(int damage);
     void heal(int healAmount);

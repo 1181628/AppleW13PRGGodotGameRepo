@@ -6,6 +6,12 @@
 [sub_resource type="Theme" id="Theme_b5dx5"]
 default_font = ExtResource("1_0mdko")
 
+[sub_resource type="FontVariation" id="FontVariation_t4qma"]
+base_font = ExtResource("1_0mdko")
+opentype_features = {
+1818847073: 0
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k52td"]
 bg_color = Color(0.1882353, 0.13333334, 0.09411765, 1)
 border_width_left = 2
@@ -30,27 +36,52 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 0.9411765, 0.8, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5miji"]
+bg_color = Color(0.28627452, 0.19607843, 0.13333334, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9411765, 0.8, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_t4qma"]
 atlas = ExtResource("2_b5dx5")
-region = Rect2(66, 868, 28, 28)
+region = Rect2(64, 866, 30, 30)
 
-[node name="RewardCard" type="Button" unique_id=489827675]
+[sub_resource type="FontVariation" id="FontVariation_bf0c8"]
+base_font = ExtResource("1_0mdko")
+opentype_features = {
+1818847073: 0
+}
+
+[sub_resource type="FontVariation" id="FontVariation_5miji"]
+base_font = ExtResource("1_0mdko")
+opentype_features = {
+1818847073: 0
+}
+
+[node name="RewardCard" type="RewardCard" unique_id=1257107542]
 custom_minimum_size = Vector2(56, 56)
 anchors_preset = -1
-offset_right = 56.0
-offset_bottom = 56.0
+offset_right = 64.0
+offset_bottom = 64.0
 theme = SubResource("Theme_b5dx5")
-theme_override_fonts/font = ExtResource("1_0mdko")
+theme_override_fonts/font = SubResource("FontVariation_t4qma")
 theme_override_styles/normal = SubResource("StyleBoxFlat_k52td")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_0mdko")
 theme_override_styles/hover = SubResource("StyleBoxFlat_b5dx5")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_5miji")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=395225418]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 54.0
-offset_bottom = 54.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_right = 26.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1955676440]
 layout_mode = 2
@@ -70,16 +101,19 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_t4qma")
+stretch_mode = 5
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=388338689]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = SubResource("FontVariation_bf0c8")
+theme_override_font_sizes/font_size = 5
 text = "APPLE"
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1976181998]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 0.58431375)
+theme_override_fonts/font = SubResource("FontVariation_5miji")
 theme_override_font_sizes/font_size = 3
-text = "+2 Health"
+text = "+1 Attack"

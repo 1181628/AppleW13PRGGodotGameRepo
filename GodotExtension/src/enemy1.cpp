@@ -23,6 +23,11 @@ void Enemy1::_bind_methods() {
 }
 
 void Enemy1::_ready() {
+    // Stop the function running before the game starts
+    if (Engine::get_singleton()->is_editor_hint()) {
+        return;
+    }
+
     // Connects Enemy1's hurtbox signal
     Area2D *hurtbox_area = get_node<Area2D>("HurtboxArea");
     hurtbox_area->connect("area_entered", callable_mp(this, &Enemy1::_on_hurtbox_area_entered));
@@ -32,7 +37,7 @@ void Enemy1::_ready() {
 }
 
 // ================================== ENEMY1 STATE MACHINE ===================================
-void Enemy1::_process(double delta) {
+void Enemy1::_physics_process(double) {
     // Stop the function running before the game starts
     if (Engine::get_singleton()->is_editor_hint()) {
         return;
@@ -44,19 +49,19 @@ void Enemy1::_process(double delta) {
     //  Runs the behaviour belonging to the current state
     switch (current_state) {
         case State::NORMAL:
-            process_normal(delta);
+            process_normal();
             break;
 
         case State::WALK:
-            process_walk(delta);
+            process_walk();
             break;
 
         case State::ATTACK:
-            process_attack(delta);
+            process_attack();
             break;
 
         case State::DIE:
-            process_die(delta);
+            process_die();
             break;
     }
     // After this physics frame, the current state is no longer new
@@ -70,11 +75,7 @@ void Enemy1::change_state(int new_state) {
 }
 
 // ================================== NORMAL STATE ===================================
-void Enemy1::process_normal(double delta) {
-    // Remove this line when delta is used
-    // There will be a gravity effect added to Enemy1 but not now
-    (void)delta;
-
+void Enemy1::process_normal() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
 
     // Stops all movement while Enemy1 is idle
@@ -94,7 +95,7 @@ void Enemy1::process_normal(double delta) {
     if (!animationPlayer->is_playing()) {
         // Calculates the horizontal distance between Enemy1 and Player
         double distance = std::abs(playerPosition.x - get_global_position().x);
-        // Attack when the Player is less than 80 pixels away else move closer
+        // Attack when the Player is less than attackRange pixels away else move closer
         if (distance < attackRange) {
             call_deferred("change_state", static_cast<int>(State::ATTACK));
         } else {
@@ -104,8 +105,7 @@ void Enemy1::process_normal(double delta) {
 }
 
 // ================================== WALK STATE ===================================
-void Enemy1::process_walk(double delta) {
-    (void)delta;
+void Enemy1::process_walk() {
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");   
     Vector2 velocity = get_velocity();
     _turn_direction();
@@ -134,8 +134,7 @@ void Enemy1::process_walk(double delta) {
 }
 
 // ================================== ATTACK STATE ===================================
-void Enemy1::process_attack(double delta) {
-    (void)delta;
+void Enemy1::process_attack() {   
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
     Vector2 velocity = get_velocity();  
 
@@ -156,8 +155,7 @@ void Enemy1::process_attack(double delta) {
 }
 
 // ================================== DIE STATE ===================================
-void Enemy1::process_die(double delta) {
-    (void)delta;
+void Enemy1::process_die() {   
     AnimationPlayer * animationPlayer = get_node<AnimationPlayer>("AnimationPlayer");  
 
     // Plays die once when entering DIE
@@ -168,10 +166,16 @@ void Enemy1::process_die(double delta) {
         get_node<CollisionPolygon2D>("BodyHitboxArea/BodyHitbox")->set_disabled(true);
         get_node<CollisionPolygon2D>("AttackHitboxArea/AttackHitbox")->set_disabled(true);
 
+        Node *room_manager_node = get_tree()->get_first_node_in_group("room_manager");
+        RoomManager *room_manager = Object::cast_to<RoomManager>(room_manager_node);
+        // Tells RoomManager that one enemy in this room has died
+        room_manager->enemy_died();
+
         animationPlayer->play("death");  
     }
 }
 
+// Turns the sprite and collision areas towards the Player
 void Enemy1::_turn_direction() {
     Area2D *attackhitbox_area = get_node<Area2D>("AttackHitboxArea");
     Area2D *bodyhitbox_area = get_node<Area2D>("BodyHitboxArea");
@@ -209,8 +213,10 @@ void Enemy1::_turn_direction() {
 }
 
 void Enemy1::match_player_position() {
+    // Finds nodes in the player group
     TypedArray<Node> players = get_tree()->get_nodes_in_group("player");
 
+    // Checks that the group is not empty before accessing its first node
     if (players.size() > 0) {
         Node2D *player = Object::cast_to<Node2D>(players[0]);
         // Store the Player's global position
@@ -222,29 +228,26 @@ void Enemy1::match_player_position() {
 
 // Runs when another Area2D enters the Enemy1's hurtbox
 void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
+    // Starts the timer and switches to the sprite's own material
     get_node<Timer>("MaterialTimer")->start();
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(false);
     StringName areaName = area->get_name();
 
     PlayerStatus *player_status = get_node<PlayerStatus>("/root/PlayerStatusData");
 
+    // Generate some particles
     CPUParticles2D *hit_particle = get_node<CPUParticles2D>("HitParticle");
     hit_particle->set_position(Vector2(0, -15));
     hit_particle->set_emitting(true);
     hit_particle->restart();
 
-    // Only deal damage if the entering area is the Player's Attack1 hitbox
-    if (areaName == StringName("Attack1")) {
+    // Only deal damage if the entering area is the Player's Attack hitbox
+    if (areaName == StringName("Attack")) {
         Health -= player_status->attackDamage;
     }
 
     // Change state to DIE when Enemy1 has no health remaining
     if (Health <= 0) {
-        Node *room_manager_node = get_tree()->get_first_node_in_group("room_manager");
-        RoomManager *room_manager = Object::cast_to<RoomManager>(room_manager_node);
-        // Tells RoomManager that one enemy in this room has died
-        room_manager->enemy_died();
-
         call_deferred("change_state", static_cast<int>(State::DIE));
     }
 
@@ -252,5 +255,6 @@ void Enemy1::_on_hurtbox_area_entered(Area2D *area) {
 
 // called automatically when Enemy1's MaterialTimer finishes
 void Enemy1::_on_material_timer_timeout() {
+    // Restores the parent material after the timer finishes
     get_node<Sprite2D>("SpriteArea/Sprite2D")->set_use_parent_material(true);
 }

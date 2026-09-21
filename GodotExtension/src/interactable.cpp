@@ -2,7 +2,6 @@
 #include "player.h"
 
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -35,8 +34,6 @@ void Interactable::_ready() {
 }
 
 void Interactable::interact() {
-    UtilityFunctions::print("[Interact] ", get_name());
-
     // Sends the interacted signal
     emit_signal("interacted");
 }
