@@ -182,6 +182,10 @@ void RoomManager::load_room(int room_id, bool save_progress) {
                 label->hide();
             }
         }
+        // Hide and disable the teleporter
+        Node2D *teleporter = Object::cast_to<Node2D>(get_node_or_null(NodePath("../TileMapLayer/Teleporter")));
+        teleporter->hide();
+        teleporter->set_process_mode(Node::PROCESS_MODE_DISABLED);
     }
 
     // Removes objects from the previous room

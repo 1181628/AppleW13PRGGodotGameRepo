@@ -53,12 +53,12 @@ void PastRecords::display_records() {
     }
 
     // No history file means there are no results to display
-    if (!FileAccess::file_exists("user://past_records.json")) {
+    if (!FileAccess::file_exists("./save/past_records.json")) {
         return;
     }
 
     // Open the history file created by SaveManager
-    Ref<FileAccess> file = FileAccess::open("user://past_records.json", FileAccess::READ);
+    Ref<FileAccess> file = FileAccess::open("./save/past_records.json", FileAccess::READ);
 
     // Stops before reading a file that could not be opened
     if (file.is_null()) {

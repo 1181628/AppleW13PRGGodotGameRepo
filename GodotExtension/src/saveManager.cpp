@@ -61,7 +61,7 @@ void SaveManager::save_game(int current_room_id) {
     save_data["elapsed_seconds"] = player_status->elapsedSeconds;
 
     // Opens or creates the save file inside Godot's user data folder
-    Ref<FileAccess> save_file = FileAccess::open("user://save_game.json", FileAccess::WRITE);
+    Ref<FileAccess> save_file = FileAccess::open("./save/save_game.json", FileAccess::WRITE);
    
     // Converts the Dictionary into JSON text and writes it into the file
     save_file->store_string(JSON::stringify(save_data));
@@ -71,13 +71,13 @@ void SaveManager::save_game(int current_room_id) {
 // Load saved data into the supplied player status object
 bool SaveManager::load_game(PlayerStatus *player_status) {
     // Stop loading if the save file does not exist
-    if (!FileAccess::file_exists("user://save_game.json")) {
+    if (!FileAccess::file_exists("./save/save_game.json")) {
         OS::get_singleton()->alert("No previous saved game found.", "Load Game");
         return false;
     }
 
     // Open the save file for reading
-    Ref<FileAccess> file = FileAccess::open("user://save_game.json", FileAccess::READ);
+    Ref<FileAccess> file = FileAccess::open("./save/save_game.json", FileAccess::READ);
 
     // Stop loading if the file could not be opened
     if (file.is_null()) {
@@ -156,7 +156,7 @@ bool SaveManager::load_game(PlayerStatus *player_status) {
 void SaveManager::save_past_record() {
     // Read the time and room ID
     PlayerStatus *status = get_node<PlayerStatus>("/root/PlayerStatusData");
-    Ref<FileAccess> file = FileAccess::open("user://save_game.json", FileAccess::READ);
+    Ref<FileAccess> file = FileAccess::open("./save/save_game.json", FileAccess::READ);
 
     // Stop if the current save cannot be opened
     if (file.is_null()) {
@@ -181,8 +181,8 @@ void SaveManager::save_past_record() {
     Array records;
 
     // If a history file exists, read its previous results
-    if (FileAccess::file_exists("user://past_records.json")) {
-        file = FileAccess::open("user://past_records.json", FileAccess::READ);
+    if (FileAccess::file_exists("./save/past_records.json")) {
+        file = FileAccess::open("./save/past_records.json", FileAccess::READ);
         // Stop rather than overwrite history that could not be read
         if (file.is_null()) {
             return;
@@ -210,7 +210,7 @@ void SaveManager::save_past_record() {
     Dictionary history;
     history["records"] = records;
     // Open the history file for writing
-    file = FileAccess::open("user://past_records.json", FileAccess::WRITE);
+    file = FileAccess::open("./save/past_records.json", FileAccess::WRITE);
 
     // Keep the current save if the history file cannot be opened
     if (file.is_null()) {
@@ -231,5 +231,5 @@ void SaveManager::save_past_record() {
     }
 
     // Attempts to remove this run's current save after saving its record
-    DirAccess::remove_absolute("user://save_game.json");
+    DirAccess::remove_absolute("./save/save_game.json");
 }

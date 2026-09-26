@@ -83,7 +83,6 @@ void PauseScreen::resume_game() {
     }
 
     get_tree()->set_pause(false);
-    hide();
 }
 
 // Resume the scene tree before returning to the title screen
